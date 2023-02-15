@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useOutletContext } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import activePlateIcon from "../../../../icons/buttons/button_plate_active.svg";
@@ -17,9 +16,10 @@ import "./main-page.scss";
 export const MainPage = () => {
   const [showSeacthBar, setShowSeacthBar] = useState(false);
   const [showPlate, setShowPlate] = useState(true);
-  // const error = useSelector((state) => state.error);
-
-  const [error, loaded] = useOutletContext();
+  const books = useSelector((state) => state.books.books);
+  const error = useSelector((state) => state.books.error);
+  const loaded = useSelector((state) => state.books.loading);
+  console.log(books)
   const buttonAutoFocus = useRef(null);
   const toggleShowBar = () => {
     setShowSeacthBar(!showSeacthBar);
@@ -134,8 +134,41 @@ export const MainPage = () => {
             </div>
           </div>
           <div className="books">
-            <BooksPlate showPlate={showPlate} />
-            <BookSqure showPlate={showPlate} />
+            <div
+              className={
+                showPlate ? "books-container" : "books-container-plate"
+              }
+            >
+              {books && books.length > 0
+                ? books.map((item) => {
+                  return (
+                    showPlate ? (
+                      <BookSqure
+                        title={item.title}
+                        authors={item.authors}
+                        id={item.id}
+                        image={item.image}
+                        rating={item.rating}
+                        issueYear={item.issueYear}
+                        booking={item.booking}
+                        delivery={item.delivery}
+                        key={item.id}
+                      />
+                    ) :
+                      <BooksPlate
+                        title={item.title}
+                        authors={item.authors}
+                        id={item.id}
+                        image={item.image}
+                        rating={item.rating}
+                        issueYear={item.issueYear}
+                        booking={item.booking}
+                        delivery={item.delivery}
+                        key={item.id} />
+                  )
+                })
+                : null}
+            </div>
           </div>
         </div>
       </section>

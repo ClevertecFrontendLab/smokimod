@@ -2,12 +2,12 @@ import warning from "../../../../icons/WarningCircle.svg";
 import cross from "../../../../icons/creset_icon.svg";
 
 import "./error-case.scss";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export const ErrorCase = () => {
   const [showerror, setShowError] = useState(false);
   return (
-    <aside className={showerror ? "disbaled-error-block" : ""}>
+    <aside className={showerror ? "disbaled-error-block" : ""} data-test-id='error'>
       <div className="error-container">
         <div className="warning-icon">
           <img src={warning} alt={warning} />

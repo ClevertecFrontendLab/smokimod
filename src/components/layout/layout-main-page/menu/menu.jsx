@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import "./menu.scss";
 
 // eslint-disable-next-line complexity
-export const Menu = ({ showArticle, hanbdleClose, loaded }) => {
+export const Menu = ({ showArticle, hanbdleClose }) => {
   const setActive = ({ isActive }) => (isActive ? " active item" : "");
+  const loaded = useSelector((state) => state.books.loading);
+
   const [isTogleMenu, setIsTogleMenu] = useState(false);
   const location = useLocation();
   const bookPath = location.pathname.substring(1, 6);
-  console.log(location);
   const toggleMenu = () => {
     setIsTogleMenu(!isTogleMenu);
   };

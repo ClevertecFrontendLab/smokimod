@@ -8,7 +8,6 @@ import thunk from "redux-thunk";
 import { booksReducer } from "./booksReducer";
 
 import { BurgerMenuReducer } from "./burger-menu-reducer";
-import { ErrorReducer } from "./error-reducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -16,7 +15,6 @@ const rootReducer = combineReducers({
   burger: BurgerMenuReducer,
   comments: BurgerMenuReducer,
   books: booksReducer,
-  error: ErrorReducer,
 });
 
 export const store = createStore(
