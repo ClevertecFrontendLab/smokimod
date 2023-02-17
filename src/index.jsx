@@ -24,7 +24,7 @@ root.render(
                         <Route path='rules' element={<Terms contentView='Правила пользования' />} />
                         <Route path='contract' element={<Terms contentView='Договор оферты' />} />
                     </Route>
-                    <Route path='book/:category/bookId/:id' element={<BookPage />} />
+                    <Route path='books/:category/:id' element={<BookPage />} />
                 </Route>
             </Routes>
         </Provider>

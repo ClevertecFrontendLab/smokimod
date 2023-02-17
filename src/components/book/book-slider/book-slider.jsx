@@ -1,116 +1,95 @@
-import React, { useState } from 'react';
-import { FreeMode, Keyboard, Navigation, Pagination, Scrollbar, Thumbs } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useState } from "react";
+import {
+  FreeMode,
+  Keyboard,
+  Navigation,
+  Pagination,
+  Scrollbar,
+  Thumbs,
+} from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import altBookBigIcon from '../../../icons/book-images/image-alt.svg';
-import slideImage from '../../../icons/book-images/image-book.svg';
-import pushkinImage from '../../../icons/book-images/pushkin.jpg';
-import bookBigIcon from '../../../images/image.jpg';
+import altBookBigIcon from "../../../icons/book-images/image-alt.svg";
 
-import './slider.scss';
+import "./slider.scss";
 
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/navigation';
-import 'swiper/css/thumbs';
-import 'swiper/css/scrollbar';
-import 'swiper/css/pagination';
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import "swiper/css/scrollbar";
+import "swiper/css/pagination";
 
-export const BookSlider = ({ id }) => {
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+export const BookSlider = ({ images = [] }) => {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const IMAGE_URL = "https://strapi.cleverland.by";
 
-    return id === 0 || id === 9 ?
+  return (
+    <React.Fragment>
+      <Swiper
+        loop={true}
+        spaceBetween={10}
+        navigation={true}
+        thumbs={{ swiper: thumbsSwiper }}
+        modules={[FreeMode, Navigation, Thumbs, Keyboard, Pagination]}
+        pagination={{
+          clickable: true,
+          el: ".my-swiper-pagination",
+          type: "bullets",
+        }}
+        className="mySwiper2"
+        data-test-id="slide-big"
+      >
+        {images && images.length >= 1 ? (
+          images.map((item) => (
+            <SwiperSlide key={item.url}>
+              <img
+                src={`${IMAGE_URL}${item.url}`}
+                alt="cover-books"
+                loading="lazy"
+              />
+            </SwiperSlide>
+          ))
+        ) : (
+          <SwiperSlide>
+            <img src={altBookBigIcon} alt="book" data-test-id="slide-mini" />
+          </SwiperSlide>
+        )}
+      </Swiper>
+      <div className="my-swiper-pagination" />
+      {images && images.length > 1 ? (
         <Swiper
-            loop={true}
-            spaceBetween={10}
-            navigation={true}
-            modules={[FreeMode, Navigation]}
-            className='mySwiper2'
-            data-test-id='slide-big'
+          onSwiper={setThumbsSwiper}
+          loop={true}
+          spaceBetween={30}
+          slidesPerView={5}
+          freeMode={true}
+          watchSlidesProgress={true}
+          modules={[
+            FreeMode,
+            Navigation,
+            Scrollbar,
+            Thumbs,
+            Keyboard,
+            Pagination,
+          ]}
+          scrollbar={{ draggable: true }}
+          keyboard={{
+            enabled: true,
+          }}
+          className="mySwiper"
         >
-            <SwiperSlide>
-                <img src={altBookBigIcon} alt='alt-book' />
+          {images.map((item) => (
+            <SwiperSlide key={item.url} data-test-id="slide-mini">
+              <img
+                src={`${IMAGE_URL}${item.url}`}
+                alt="cover-books"
+                className="img_disabled"
+              />
             </SwiperSlide>
+          ))}
         </Swiper>
-        : id === 1 ? <Swiper
-            loop={true}
-            spaceBetween={10}
-            navigation={true}
-            modules={[FreeMode, Navigation]}
-            className='mySwiper2'
-            data-test-id='slide-big'
-        >
-            <SwiperSlide>
-                <img src={bookBigIcon} alt='book-icon' />
-            </SwiperSlide>
-        </Swiper> :
-            <React.Fragment>
-
-                <Swiper
-                    loop={true}
-                    spaceBetween={10}
-                    navigation={true}
-                    thumbs={{ swiper: thumbsSwiper }}
-                    modules={[FreeMode, Navigation, Thumbs, Keyboard, Pagination]}
-                    pagination={{
-                        clickable: true,
-                        el: '.my-swiper-pagination',
-                        type: 'bullets',
-                    }}
-
-                    className='mySwiper2'
-                    data-test-id='slide-big'
-                >
-                    <SwiperSlide>
-                        <img src={bookBigIcon} alt='' />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={slideImage} alt='' />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={pushkinImage} alt='' />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={slideImage} alt='' />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={bookBigIcon} alt='' />
-                    </SwiperSlide>
-                </Swiper>
-                <div className='my-swiper-pagination' />
-
-                <Swiper
-                    onSwiper={setThumbsSwiper}
-                    loop={true}
-                    spaceBetween={30}
-                    slidesPerView={5}
-                    freeMode={true}
-                    watchSlidesProgress={true}
-                    modules={[FreeMode, Navigation, Scrollbar, Thumbs, Keyboard, Pagination]}
-                    scrollbar={{ draggable: true }}
-                    keyboard={{
-                        enabled: true,
-                    }}
-
-                    className='mySwiper'
-                >
-                    <SwiperSlide>
-                        <img src={bookBigIcon} className='img_disabled' alt='' data-test-id='slide-mini' />{' '}
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={slideImage} className='img_disabled' alt='' data-test-id='slide-mini' />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={pushkinImage} className='img_disabled' alt='' data-test-id='slide-mini' />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={slideImage} className='img_disabled' alt='' data-test-id='slide-mini' />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={bookBigIcon} className='img_disabled' alt='' data-test-id='slide-mini' />
-                    </SwiperSlide>
-
-                </Swiper>
-            </React.Fragment>
-        ;
+      ) : null}
+    </React.Fragment>
+  );
 };

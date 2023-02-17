@@ -1,38 +1,33 @@
-import { Outlet } from "react-router-dom";
-import React, { useEffect } from "react";
+import { Outlet, useParams } from "react-router-dom";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { BooksSlice } from "../../../store/books-slice";
+import { BooksSlice, CategoryOfBooksSlice } from "../../../store/books-slice";
 import { Menu } from "./menu";
 
 import "../layout.scss";
-import { ErrorCase } from "./error-case/error-case";
 
 export const LayoutMainPage = () => {
-  const error = useSelector((state) => state.books.error);
+  const books = useSelector((state) => state.books.books);
+  const categories = useSelector((state) => state.books.categories);
 
+  const { category } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getInitialData = async () => {
-      await dispatch(BooksSlice());
+      books.length > 0 ? null : await dispatch(BooksSlice());
+      books.length > 0 ? null : await dispatch(CategoryOfBooksSlice());
     };
     getInitialData();
-  }, [dispatch, error]);
+  }, [dispatch, category]);
 
   return (
     <div className="main-container">
       <div className="show-menu">
         <Menu />
       </div>
-      {error ? (
-        <React.Fragment>
-          <ErrorCase />
-          <Outlet />
-        </React.Fragment>
-      ) : (
-        <Outlet />
-      )}
+      <Outlet />
     </div>
   );
 };

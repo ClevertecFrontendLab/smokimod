@@ -6,10 +6,10 @@ $bgcolor: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
 .article-section.hidden {
   visibility: hidden;
   pointer-events: none;
+  width: 825px;
 }
 .article-section {
-  max-width: 825px;
-  min-height: 1500px;
+  width: 825px;
 }
 .navigation-wraper {
   display: flex;

@@ -5,28 +5,7 @@
   align-items: center;
   gap: 42px;
 }
-.book-list-mimi {
-  width: 100%;
-  height: 64px;
-  background-color: rgba(249, 249, 250, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  .list-container {
-    width: 1110px;
-    display: flex;
-    letter-spacing: 0.2px;
-    color: #a7a7a7;
-  }
-  .list-item {
-    color: #a7a7a7;
-    font-size: 14px;
-  }
-  .list-item.slash {
-    margin: 0 12px;
-  }
-}
 .book-holder {
   display: flex;
   width: 100%;
@@ -84,10 +63,22 @@
   }
 }
 .order-book-btn:active {
-  box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+  box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2),
+    0px 1px 10px rgba(249, 89, 8, 0.2);
 }
 .order-book-btn:hover {
   box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
+}
+.order-book-btn.booking {
+  background: #f9f9fa !important;
+  border: 1px solid #bfc4c9;
+  font-weight: 600;
+  color: rgba(167, 167, 167, 1);
+}
+.order-book-btn.delivery {
+  background: #ffffff;
+  border: 1px solid #bfc4c9;
+  color: rgba(54, 54, 54, 1);
 }
 
 .book-about {
@@ -115,11 +106,6 @@
 }
 
 @media (min-width: 768px) and (max-width: 1440px) {
-  .book-list-mimi {
-    .list-container {
-      width: calc(640px + (1110 - 640) * ((100vw - 768px) / (1440 - 768)));
-    }
-  }
   .book-holder,
   .book-summary {
     width: calc(640px + (1110 - 640) * ((100vw - 768px) / (1440 - 768)));
@@ -145,11 +131,6 @@
   }
 }
 @media (min-width: 320px) and (max-width: 768px) {
-  .book-list-mimi {
-    .list-container {
-      width: calc(288px + (640 - 288) * ((100vw - 320px) / (768 - 320)));
-    }
-  }
   .book-summary,
   .book-name {
     width: calc(288px + (640 - 288) * ((100vw - 320px) / (768 - 320)));

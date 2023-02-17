@@ -1,24 +1,26 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./menu.scss";
 
 // eslint-disable-next-line complexity
 export const Menu = ({ showArticle, hanbdleClose }) => {
   const setActive = ({ isActive }) => (isActive ? " active item" : "");
-  const loaded = useSelector((state) => state.books.loading);
-
+  const loading = useSelector((state) => state.books.loading);
+  const books = useSelector((state) => state.books.books);
+  const categories = useSelector((state) => state.books.categories);
   const [isTogleMenu, setIsTogleMenu] = useState(false);
   const location = useLocation();
   const bookPath = location.pathname.substring(1, 6);
-  const toggleMenu = () => {
-    setIsTogleMenu(!isTogleMenu);
-  };
+
 
   useEffect(
-    () => (loaded ? setIsTogleMenu(true) : setIsTogleMenu(false)),
-    [loaded]
+    () => {
+      loading ? setIsTogleMenu(true) : setIsTogleMenu(false)
+    },
+    [loading]
   );
+
   useEffect(
     () => (bookPath !== "books" ? setIsTogleMenu(true) : setIsTogleMenu(false)),
     [bookPath]
@@ -31,7 +33,8 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
           <NavLink to="/books/all" style={{ width: "100%" }}>
             <h5
               role="presentation"
-              onClick={toggleMenu}
+              onClick={() => setIsTogleMenu(!isTogleMenu)
+              }
               className={bookPath === "books" ? "category active" : "category"}
               data-test-id={
                 showArticle ? "burger-showcase" : "navigation-showcase"
@@ -45,6 +48,7 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
           </NavLink>
         </div>
 
+
         <ul className={isTogleMenu ? "navigation disabled" : "navigation"}>
           <li className="first-li">
             <NavLink
@@ -56,95 +60,21 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
               Все книги
             </NavLink>
           </li>
+          {categories.map((item) => {
+            return (
+              <li key={item.path}>
+                <NavLink
+                  className={setActive}
+                  to={`/books/${item.path}`}
+                  onClick={showArticle ? hanbdleClose : null}
+                >
+                  {item.name}
+                </NavLink>
+                <span>{books.length}</span>
+              </li>)
+          })}
 
-          <li>
-            <NavLink
-              className={setActive}
-              to="/books/buisnes"
-              onClick={showArticle ? hanbdleClose : null}
-            >
-              Бизнес-книги
-            </NavLink>
-            <span>14</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="/books/:detective">
-              Детективы
-            </NavLink>
-            <span>8</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="/books/:children">
-              Детские книги
-            </NavLink>
-            <span>14</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="books/:foreing">
-              Зарубежная литература
-            </NavLink>
-            <span>2</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="books/:history">
-              История
-            </NavLink>
-            <span>5</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="books/:classic">
-              Классическая литература
-            </NavLink>
-            <span>12</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="books/:psychology">
-              Книги по психологии
-            </NavLink>
-            <span>11</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="books/:compuneter">
-              Компьютерная литература
-            </NavLink>
-            <span>54</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="books/:culture&history">
-              Культура и искусство
-            </NavLink>
-            <span>5</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="books/:sience&education">
-              Наука и образование
-            </NavLink>
-            <span>2</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="books/:public">
-              Публицистическая литература
-            </NavLink>
-            <span>0</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="books/:faq">
-              Справочники
-            </NavLink>
-            <span>10</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="books/:fantastic">
-              Фантастика
-            </NavLink>
-            <span>12</span>
-          </li>
-          <li role="presentation" onClick={showArticle ? hanbdleClose : null}>
-            <NavLink className={setActive} to="books/:humor">
-              Юмористическая литература
-            </NavLink>
-            <span>8</span>
-          </li>
+
         </ul>
         <div className="terms-deal-container">
           <NavLink

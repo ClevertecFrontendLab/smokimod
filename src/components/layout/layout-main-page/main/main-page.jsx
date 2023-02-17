@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { CategoryFilter } from "./categoryFilter";
 
 import activePlateIcon from "../../../../icons/buttons/button_plate_active.svg";
 import activeSqureIcon from "../../../../icons/buttons/button_suqare_active.svg";
@@ -18,9 +20,9 @@ export const MainPage = () => {
   const [showPlate, setShowPlate] = useState(true);
   const books = useSelector((state) => state.books.books);
   const error = useSelector((state) => state.books.error);
-  const loaded = useSelector((state) => state.books.loading);
-  console.log(books)
+  const loading = useSelector((state) => state.books.loading);
   const buttonAutoFocus = useRef(null);
+
   const toggleShowBar = () => {
     setShowSeacthBar(!showSeacthBar);
   };
@@ -33,10 +35,10 @@ export const MainPage = () => {
 
   return (
     <React.Fragment>
-      {loaded ? <Loader /> : null}
+      {loading && <Loader />}
       <section
         className={
-          error || loaded ? "article-section hidden" : "article-section"
+          error || loading ? "article-section hidden" : "article-section"
         }
       >
         <div className="navigation-wraper">
@@ -141,8 +143,7 @@ export const MainPage = () => {
             >
               {books && books.length > 0
                 ? books.map((item) => {
-                  return (
-                    showPlate ? (
+                    return showPlate ? (
                       <BookSqure
                         title={item.title}
                         authors={item.authors}
@@ -154,7 +155,7 @@ export const MainPage = () => {
                         delivery={item.delivery}
                         key={item.id}
                       />
-                    ) :
+                    ) : (
                       <BooksPlate
                         title={item.title}
                         authors={item.authors}
@@ -164,9 +165,10 @@ export const MainPage = () => {
                         issueYear={item.issueYear}
                         booking={item.booking}
                         delivery={item.delivery}
-                        key={item.id} />
-                  )
-                })
+                        key={item.id}
+                      />
+                    );
+                  })
                 : null}
             </div>
           </div>
