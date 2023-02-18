@@ -10,7 +10,7 @@ import squreIcon from "../../../../icons/buttons/squre-icon.svg";
 import crossIcon from "../../../../icons/creset_icon.svg";
 import SearchIcon from "../../../../icons/glass_icon.svg";
 import { Loader } from "../loader/loader";
-import { BooksPlate } from "../main-books/books-plate/books-plate";
+import { BooksPlate } from "../main-books//books-plate";
 import { BookSqure } from "../main-books/books-squre";
 
 import "./main-page.scss";

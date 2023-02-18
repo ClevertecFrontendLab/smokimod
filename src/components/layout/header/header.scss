@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 
 header {
-  width: 100%;
   height: 105px;
   display: flex;
   justify-content: center;
@@ -18,11 +17,12 @@ header {
 
 .logo {
   flex-basis: 165px;
+  margin-right: 20px;
   .menu {
     .menu.item {
       width: 165px;
       height: 40px;
-      background: url('../../../icons/logo.png') no-repeat;
+      background: url("../../../icons/logo.png") no-repeat;
     }
   }
   .disabled {
@@ -32,11 +32,10 @@ header {
 
 .library {
   color: #363636;
-  font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 32px;
   line-height: 40px;
-  flex-basis: 400px;
+  flex-basis: 420px;
 }
 .user {
   width: 300px;
@@ -47,14 +46,15 @@ header {
   .user-name {
     font-weight: 600;
     font-size: 14px;
-    color: rgba(54, 54, 54, 1);
+    color: #363636;
     margin-right: 16px;
   }
 }
 .img-user-container {
   width: 58px;
   height: 58px;
-  filter: drop-shadow(0px 2px 4px rgba(191, 196, 201, 0.2)) drop-shadow(0px 3px 4px rgba(191, 196, 201, 0.18))
+  filter: drop-shadow(0px 2px 4px rgba(191, 196, 201, 0.2))
+    drop-shadow(0px 3px 4px rgba(191, 196, 201, 0.18))
     drop-shadow(0px 1px 5px rgba(191, 196, 201, 0.24));
   .img-user {
     max-width: 100%;
@@ -95,16 +95,16 @@ header {
     }
 
     .disabled,
-    .disabled.item {
+    .disabled.burger {
       display: block;
       cursor: pointer;
       width: 32px;
       height: 32px;
-      background: url('../../../icons/responsiveMenu_icon.svg') no-repeat;
+      background: url("../../../icons/responsiveMenu_icon.svg") no-repeat;
       background-position: center;
     }
-    .disabled.item {
-      background: url('../../../icons/menu_close.svg') no-repeat;
+    .disabled.burger {
+      background: url("../../../icons/menu_close.svg") no-repeat;
     }
   }
 }
@@ -124,13 +124,13 @@ header {
       cursor: pointer;
       width: 24px;
       height: 24px;
-      background: url('../../../icons/responsiveMenu_icon.svg') no-repeat;
+      background: url("../../../icons/responsiveMenu_icon.svg") no-repeat;
       background-position: center;
     }
-    .disabled.item {
+    .disabled.burger {
       width: 14px;
       height: 14px;
-      background: url('../../../icons/menu_close.svg') no-repeat;
+      background: url("../../../icons/menu_close.svg") no-repeat;
       background-position: center;
     }
   }

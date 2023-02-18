@@ -132,7 +132,7 @@
     }
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 625px) {
   .plate-book-info {
     .book-info {
       display: flex;
@@ -157,7 +157,10 @@
     margin-top: 10px;
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 470px) {
+  .plate {
+    padding: 16px 16px 16px 8px;
+  }
   .plate-book-info {
     .book-info {
       display: flex;
@@ -173,12 +176,14 @@
       }
     }
   }
+  .plate-order {
+    .plate-btn {
+      width: 100%;
+    }
+  }
   .plate-img-container {
     height: 100px;
-    width: 80px;
-    img {
-      height: 100%;
-    }
+    width: 100px;
   }
 }
 
@@ -194,6 +199,9 @@
   .plate-img-container {
     width: 70px;
     height: 100px;
+    img {
+      max-width: 100%;
+    }
   }
   .plate-book-info {
     width: 186px;

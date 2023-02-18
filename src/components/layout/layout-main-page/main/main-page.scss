@@ -1,8 +1,5 @@
 $bgcolor: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
 
-.books {
-  min-height: 1458px;
-}
 .article-section.hidden {
   visibility: hidden;
   pointer-events: none;
@@ -223,7 +220,7 @@ label:before {
 
 @media (min-width: 768px) and (max-width: 1440px) {
   .article-section {
-    width: calc(640px + (825 - 640) * ((100vw - 768px) / (1440 - 768)));
+    width: calc(540px + (825 - 540) * ((100vw - 768px) / (1440 - 768)));
   }
   .btn-autor {
     width: calc(274px + (350 - 274) * ((100vw - 768px) / (1440 - 768)));

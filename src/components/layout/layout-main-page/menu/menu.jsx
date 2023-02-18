@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLocation, } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 import "./menu.scss";
 
 // eslint-disable-next-line complexity
+
 export const Menu = ({ showArticle, hanbdleClose }) => {
-  const setActive = ({ isActive }) => (isActive ? " active item" : "");
   const loading = useSelector((state) => state.books.loading);
   const books = useSelector((state) => state.books.books);
   const categories = useSelector((state) => state.books.categories);
   const [isTogleMenu, setIsTogleMenu] = useState(false);
+  const setActive = ({ isActive }) => (isActive ? " active item" : "");
+  const { id } = useParams();
   const location = useLocation();
   const bookPath = location.pathname.substring(1, 6);
 
+  useEffect(() => {
+    loading ? setIsTogleMenu(true) : setIsTogleMenu(false);
+  }, [loading]);
 
   useEffect(
-    () => {
-      loading ? setIsTogleMenu(true) : setIsTogleMenu(false)
-    },
-    [loading]
-  );
-
-  useEffect(
-    () => (bookPath !== "books" ? setIsTogleMenu(true) : setIsTogleMenu(false)),
+    () =>
+      bookPath !== "books" || id ? setIsTogleMenu(true) : setIsTogleMenu(false),
     [bookPath]
   );
 
@@ -30,11 +30,10 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
     <article className="show-article">
       <nav className="menu-wraper">
         <div className="category-container">
-          <NavLink to="/books/all" style={{ width: "100%" }}>
+          <NavLink to="/books/all">
             <h5
               role="presentation"
-              onClick={() => setIsTogleMenu(!isTogleMenu)
-              }
+              onClick={() => setIsTogleMenu(!isTogleMenu)}
               className={bookPath === "books" ? "category active" : "category"}
               data-test-id={
                 showArticle ? "burger-showcase" : "navigation-showcase"
@@ -47,7 +46,6 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
             </h5>
           </NavLink>
         </div>
-
 
         <ul className={isTogleMenu ? "navigation disabled" : "navigation"}>
           <li className="first-li">
@@ -70,11 +68,12 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
                 >
                   {item.name}
                 </NavLink>
-                <span>{books.length}</span>
-              </li>)
+                <span>
+                  {books.filter((i) => i.categories[0] === item.name).length}
+                </span>
+              </li>
+            );
           })}
-
-
         </ul>
         <div className="terms-deal-container">
           <NavLink

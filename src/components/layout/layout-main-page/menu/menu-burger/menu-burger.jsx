@@ -11,10 +11,6 @@ export const Menuburger = ({ showArticle }) => {
   const setActive = ({ isActive }) => (isActive ? " active item" : "");
   const dispatch = useDispatch();
 
-  const hanbdleClose = () => {
-    setCloseMenu(true);
-  };
-
   const wayDownMenu = () => {
     setCloseMenu(true);
 
@@ -28,11 +24,7 @@ export const Menuburger = ({ showArticle }) => {
       onClick={(e) => e.stopPropagation()}
       data-test-id="burger-navigation"
     >
-      <Menu
-        showArticle={showArticle}
-        data-test-id="burger-showcase"
-        hanbdleClose={wayDownMenu}
-      />
+      <Menu showArticle={showArticle} hanbdleClose={wayDownMenu} />
       <div className="border-menu" />
       <div className="terms-profile-container">
         <NavLink className={setActive} to="/#" activeclassname="active item">
@@ -42,7 +34,7 @@ export const Menuburger = ({ showArticle }) => {
         </NavLink>
         <NavLink className={setActive} to="/#" activeclassname="active item">
           <button onClick={wayDownMenu} type="button" className="terms item">
-            Выход{" "}
+            Выход
           </button>
         </NavLink>
       </div>

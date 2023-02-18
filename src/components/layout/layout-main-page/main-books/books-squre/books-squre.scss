@@ -102,6 +102,11 @@
 .order:hover {
   box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
 }
+@media (max-width: 940px) {
+  .books-container {
+    justify-content: center;
+  }
+}
 
 @media (max-width: 768px) {
   .books-container {

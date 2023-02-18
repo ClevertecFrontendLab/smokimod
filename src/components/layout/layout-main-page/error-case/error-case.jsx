@@ -1,13 +1,16 @@
+import { useState } from "react";
 import warning from "../../../../icons/WarningCircle.svg";
 import cross from "../../../../icons/creset_icon.svg";
 
 import "./error-case.scss";
-import { useState } from "react";
 
 export const ErrorCase = () => {
   const [showerror, setShowError] = useState(false);
   return (
-    <aside className={showerror ? "disbaled-error-block" : ""} data-test-id='error'>
+    <aside
+      className={showerror ? "disbaled-error-block" : ""}
+      data-test-id="error"
+    >
       <div className="error-container">
         <div className="warning-icon">
           <img src={warning} alt={warning} />
@@ -20,7 +23,7 @@ export const ErrorCase = () => {
           className="error-cross"
           onClick={() => setShowError(true)}
         >
-          <img src={cross} alt={cross} />
+          <img src={cross} alt="cross" />
         </button>
       </div>
     </aside>

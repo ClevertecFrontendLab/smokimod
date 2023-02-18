@@ -10,6 +10,7 @@ import { BookBreadList } from "./book-bread-list/book-bread-list";
 import { CurrentBookSlice } from "../../store/books-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../layout/layout-main-page/loader/loader";
+import { CategoryOfBooksSlice } from "../../store/books-slice";
 
 import "./book-page.scss";
 
@@ -18,6 +19,8 @@ export const BookPage = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.books.loading);
   const currentBook = useSelector((state) => state.books.currentBook);
+  const categories = useSelector((state) => state.books.categories);
+
   const {
     authors,
     description,
@@ -33,15 +36,16 @@ export const BookPage = () => {
   useEffect(() => {
     const getBookRequestById = async () => {
       await dispatch(CurrentBookSlice(id));
+      categories.length > 0 ? null : await dispatch(CategoryOfBooksSlice());
     };
     getBookRequestById();
-  }, [id, dispatch]);
+  }, [id, dispatch, categories]);
 
   return (
     <React.Fragment>
       {loading && <Loader />}
       <div className="book-container">
-        <BookBreadList />
+        <BookBreadList title={title} categories={categories} />
         <div className="book-holder">
           <section className="book-page">
             <div className="book-name">

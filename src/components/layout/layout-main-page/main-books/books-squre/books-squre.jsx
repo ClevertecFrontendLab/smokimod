@@ -16,8 +16,8 @@ export const BookSqure = ({
   booking,
   delivery,
 }) => {
-  const { category } = useParams();
   const IMAGE_URL = "https://strapi.cleverland.by";
+  const { category } = useParams();
 
   return (
     <Link to={`/books/${category}/${id}`} key={id} id="card">
