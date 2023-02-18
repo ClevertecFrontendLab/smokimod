@@ -9,6 +9,8 @@ import "./menu.scss";
 export const Menu = ({ showArticle, hanbdleClose }) => {
   const loading = useSelector((state) => state.books.loading);
   const books = useSelector((state) => state.books.books);
+  const error = useSelector((state) => state.books.error);
+
   const categories = useSelector((state) => state.books.categories);
   const [isTogleMenu, setIsTogleMenu] = useState(false);
   const setActive = ({ isActive }) => (isActive ? " active item" : "");

@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { CategoryFilter } from "./categoryFilter";
 
 import activePlateIcon from "../../../../icons/buttons/button_plate_active.svg";
 import activeSqureIcon from "../../../../icons/buttons/button_suqare_active.svg";
