@@ -6,12 +6,12 @@ import { BooksSlice, CategoryOfBooksSlice } from "../../../store/books-slice";
 import { Menu } from "./menu";
 
 import "../layout.scss";
+import { loadingBooksRequest } from "../../../store/booksReducer";
 
 export const LayoutMainPage = () => {
   const books = useSelector((state) => state.books.books);
   const categories = useSelector((state) => state.books.categories);
 
-  const { category } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export const LayoutMainPage = () => {
       books.length > 0 ? null : await dispatch(BooksSlice());
     };
     getInitialData();
-  }, [dispatch, category]);
+  }, [dispatch, categories]);
 
   return (
     <div className="main-container">

@@ -33,7 +33,7 @@ export const MainPage = () => {
 
   return (
     <React.Fragment>
-      {loading && <Loader />}
+      {loading ? <Loader /> : null}
       <section
         className={
           error || loading ? "article-section hidden" : "article-section"

@@ -14,7 +14,6 @@ export const BooksSlice = () => async (dispatch) => {
       "https://strapi.cleverland.by/api/books"
     );
     await dispatch(getBooksRequest(bookSearchRequest));
-    await dispatch(CategoryOfBooksSlice);
   } catch (err) {
     dispatch(errorBooksRequest(err));
   }

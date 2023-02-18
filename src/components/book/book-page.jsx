@@ -43,62 +43,60 @@ export const BookPage = () => {
     getBookRequestById();
   }, [id, dispatch, categories]);
 
-  return (
-    <React.Fragment>
-      {loading ? (
-        <Loader />
+  return loading ? (
+    <Loader />
+  ) : error ? (
+    <ErrorCase />
+  ) : (
+    <div className="book-container">
+      <BookBreadList title={title} />
+      {error ? (
+        <ErrorCase />
       ) : (
-        <div className="book-container">
-          <BookBreadList title={title} />
-          {error ? (
-            <ErrorCase />
-          ) : (
-            <div className="book-holder">
-              <section className="book-page">
-                <div className="book-name">
-                  <div className="book-information">
-                    <BookSlider images={images} />
-                  </div>
-                  <div className="detail-head">
-                    <h3>{title}</h3>
-                    <div className="book-subtitle">
-                      {authors}, {issueYear}
-                    </div>
-                    <button
-                      type="button"
-                      className={
-                        booking?.order
-                          ? "order-book-btn booking"
-                          : delivery?.handed
-                          ? "order-book-btn delivery"
-                          : "order-book-btn"
-                      }
-                    >
-                      {booking?.order
-                        ? booking?.dateOrder
-                        : delivery?.handed
-                        ? "Забронированно"
-                        : "Забронировать"}
-                    </button>
-                  </div>
-                  <div className="book-about">
-                    <div>
-                      <h5>О книге</h5>
-                    </div>
-                    <p className="description-item">{description}</p>
-                  </div>
+        <div className="book-holder">
+          <section className="book-page">
+            <div className="book-name">
+              <div className="book-information">
+                <BookSlider images={images} />
+              </div>
+              <div className="detail-head">
+                <h3>{title}</h3>
+                <div className="book-subtitle">
+                  {authors}, {issueYear}
                 </div>
-
-                <div className="book-summary">
-                  <BookRating rating={rating} />
-                  <AdditionalInfoBook />
-                  <BookComents comments={comments} />
+                <button
+                  type="button"
+                  className={
+                    booking?.order
+                      ? "order-book-btn booking"
+                      : delivery?.handed
+                      ? "order-book-btn delivery"
+                      : "order-book-btn"
+                  }
+                >
+                  {booking?.order
+                    ? booking?.dateOrder
+                    : delivery?.handed
+                    ? "Забронированно"
+                    : "Забронировать"}
+                </button>
+              </div>
+              <div className="book-about">
+                <div>
+                  <h5>О книге</h5>
                 </div>
-              </section>
+                <p className="description-item">{description}</p>
+              </div>
             </div>
-          )}
+
+            <div className="book-summary">
+              <BookRating rating={rating} />
+              <AdditionalInfoBook />
+              <BookComents comments={comments} />
+            </div>
+          </section>
         </div>
       )}
-    </React.Fragment>
+    </div>
   );
 };

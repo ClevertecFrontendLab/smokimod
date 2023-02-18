@@ -2,11 +2,11 @@
 
 main {
   display: flex;
-  min-height: 100vh;
   justify-content: center;
   flex-grow: 1;
   margin-top: 40px;
   margin-bottom: 40px;
+  min-height: calc(80vh - 70px);
 }
 
 .main-container {

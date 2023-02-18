@@ -4,8 +4,6 @@ const LOADING_BOOKS = "LOADING_BOOKS";
 const ERROR_BOOKS = "ERROR_BOOKS";
 const CATEGORY_OF_BOOKS = "CATEGORY_OF_BOOKS";
 
-
-
 const initialState = {
   currentBook: [],
   books: [],
@@ -19,13 +17,13 @@ export const booksReducer = (state = initialState, action) => {
     case GET_BOOKS:
       return { ...state, loading: false, books: action.payload.data };
     case LOADING_BOOKS:
-      return { ...state, loading: true }
+      return { ...state, loading: true };
     case GET_CURRENT_BOOK:
-      return { ...state, loading: false, currentBook: action.payload.data }
+      return { ...state, loading: false, currentBook: action.payload.data };
     case ERROR_BOOKS:
-      return { ...state, loading: false, error: true }
+      return { ...state, loading: false, error: true };
     case CATEGORY_OF_BOOKS:
-      return { ...state, loading: false, categories: action.payload.data }
+      return { ...state, loading: false, categories: action.payload.data };
     default:
       return state;
   }

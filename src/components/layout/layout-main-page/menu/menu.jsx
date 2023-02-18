@@ -19,7 +19,7 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
   const bookPath = location.pathname.substring(1, 6);
 
   useEffect(() => {
-    loading ? setIsTogleMenu(true) : setIsTogleMenu(false);
+    loading || error ? setIsTogleMenu(true) : setIsTogleMenu(false);
   }, [loading]);
 
   useEffect(
@@ -50,7 +50,7 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
         </div>
 
         <ul className={isTogleMenu ? "navigation disabled" : "navigation"}>
-          {loading && categories.length < 0 ? null : (
+          {loading || error ? null : (
             <li className="first-li">
               <NavLink
                 to="/books/all"
