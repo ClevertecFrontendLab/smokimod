@@ -13,6 +13,7 @@ import { Loader } from "../layout/layout-main-page/loader/loader";
 import { CategoryOfBooksSlice } from "../../store/books-slice";
 
 import "./book-page.scss";
+import { ErrorCase } from "../layout/layout-main-page/error-case/error-case";
 
 export const BookPage = () => {
   const { id } = useParams();
@@ -20,6 +21,7 @@ export const BookPage = () => {
   const loading = useSelector((state) => state.books.loading);
   const currentBook = useSelector((state) => state.books.currentBook);
   const categories = useSelector((state) => state.books.categories);
+  const error = useSelector((state) => state.books.error);
 
   const {
     authors,
@@ -43,53 +45,60 @@ export const BookPage = () => {
 
   return (
     <React.Fragment>
-      {loading && <Loader />}
-      <div className="book-container">
-        <BookBreadList title={title} categories={categories} />
-        <div className="book-holder">
-          <section className="book-page">
-            <div className="book-name">
-              <div className="book-information">
-                <BookSlider images={images} />
-              </div>
-              <div className="detail-head">
-                <h3>{title}</h3>
-                <div className="book-subtitle">
-                  {authors}, {issueYear}
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="book-container">
+          <BookBreadList title={title} />
+          {error ? (
+            <ErrorCase />
+          ) : (
+            <div className="book-holder">
+              <section className="book-page">
+                <div className="book-name">
+                  <div className="book-information">
+                    <BookSlider images={images} />
+                  </div>
+                  <div className="detail-head">
+                    <h3>{title}</h3>
+                    <div className="book-subtitle">
+                      {authors}, {issueYear}
+                    </div>
+                    <button
+                      type="button"
+                      className={
+                        booking?.order
+                          ? "order-book-btn booking"
+                          : delivery?.handed
+                          ? "order-book-btn delivery"
+                          : "order-book-btn"
+                      }
+                    >
+                      {booking?.order
+                        ? booking?.dateOrder
+                        : delivery?.handed
+                        ? "Забронированно"
+                        : "Забронировать"}
+                    </button>
+                  </div>
+                  <div className="book-about">
+                    <div>
+                      <h5>О книге</h5>
+                    </div>
+                    <p className="description-item">{description}</p>
+                  </div>
                 </div>
-                <button
-                  type="button"
-                  className={
-                    booking?.order
-                      ? "order-book-btn booking"
-                      : delivery?.handed
-                      ? "order-book-btn delivery"
-                      : "order-book-btn"
-                  }
-                >
-                  {booking?.order
-                    ? booking?.dateOrder
-                    : delivery?.handed
-                    ? "Забронированно"
-                    : "Забронировать"}
-                </button>
-              </div>
-              <div className="book-about">
-                <div>
-                  <h5>О книге</h5>
-                </div>
-                <p className="description-item">{description}</p>
-              </div>
-            </div>
 
-            <div className="book-summary">
-              <BookRating rating={rating} />
-              <AdditionalInfoBook />
-              <BookComents comments={comments} />
+                <div className="book-summary">
+                  <BookRating rating={rating} />
+                  <AdditionalInfoBook />
+                  <BookComents comments={comments} />
+                </div>
+              </section>
             </div>
-          </section>
+          )}
         </div>
-      </div>
+      )}
     </React.Fragment>
   );
 };

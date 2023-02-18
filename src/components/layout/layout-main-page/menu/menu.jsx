@@ -48,16 +48,19 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
         </div>
 
         <ul className={isTogleMenu ? "navigation disabled" : "navigation"}>
-          <li className="first-li">
-            <NavLink
-              to="/books/all"
-              className={setActive}
-              data-test-id={showArticle ? "burger-books" : "navigation-books"}
-              onClick={showArticle ? hanbdleClose : null}
-            >
-              Все книги
-            </NavLink>
-          </li>
+          {loading && categories.length < 0 ? null : (
+            <li className="first-li">
+              <NavLink
+                to="/books/all"
+                className={setActive}
+                data-test-id={showArticle ? "burger-books" : "navigation-books"}
+                onClick={showArticle ? hanbdleClose : null}
+              >
+                Все книги
+              </NavLink>
+            </li>
+          )}
+
           {categories.map((item) => {
             return (
               <li key={item.path}>
