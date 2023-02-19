@@ -45,14 +45,10 @@ export const BookPage = () => {
 
   return loading ? (
     <Loader />
-  ) : error ? (
-    <ErrorCase />
   ) : (
     <div className="book-container">
       <BookBreadList title={title} />
-      {error ? (
-        <ErrorCase />
-      ) : (
+      {error ? null : (
         <div className="book-holder">
           <section className="book-page">
             <div className="book-name">
