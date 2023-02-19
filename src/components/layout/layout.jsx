@@ -12,8 +12,6 @@ import "./layout.scss";
 export const Layout = () => {
   const burger = useSelector((state) => state.burger.isBurger);
   const error = useSelector((state) => state.books.error);
-  const loading = useSelector((state) => state.books.loading);
-
   const dispatch = useDispatch();
 
   const toggleBurger = () => {
@@ -24,7 +22,7 @@ export const Layout = () => {
     <React.Fragment>
       <Header closeBurger={toggleBurger} />
       <main onClick={toggleBurger} role="presentation">
-        {!loading && error && <ErrorCase />}
+        {error && <ErrorCase />}
         <Outlet />
         {burger && <Menuburger showArticle={burger} />}
       </main>

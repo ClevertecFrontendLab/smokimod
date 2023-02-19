@@ -6,6 +6,10 @@
   gap: 42px;
 }
 
+.book-container.disabled {
+  display: none;
+}
+
 .book-holder {
   display: flex;
   width: 100%;

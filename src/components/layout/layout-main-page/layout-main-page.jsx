@@ -6,7 +6,6 @@ import { BooksSlice, CategoryOfBooksSlice } from "../../../store/books-slice";
 import { Menu } from "./menu";
 
 import "../layout.scss";
-import { loadingBooksRequest } from "../../../store/booksReducer";
 
 export const LayoutMainPage = () => {
   const books = useSelector((state) => state.books.books);
