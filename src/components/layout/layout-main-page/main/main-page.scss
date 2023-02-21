@@ -20,17 +20,27 @@ $bgcolor: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
   display: flex;
   justify-content: space-between;
 }
+.empty-result {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+}
 .search-container {
   display: flex;
 }
-input[type="text"] {
+input[type="search"] {
   padding-left: 45px;
 }
+
 .btn-autor {
   width: 350px;
 }
 .btn-raiting {
   width: 150px;
+  color: #a7a7a7;
+  display: flex;
+  align-items: center;
+  padding-left: 45px;
 }
 
 .seacrh-button {
@@ -152,26 +162,18 @@ label:before {
 .icon-rating:before {
   filter: invert(81%) sepia(5%) saturate(14%) hue-rotate(350deg) brightness(83%)
     contrast(87%);
-
   margin: 0 -5px;
   background: url("../../../../icons/rating_icon.svg") center / contain
     no-repeat;
+  transform: rotate(0deg);
+}
+.icon-rating.toggle:before {
+  transform: rotate(180deg);
+  transform: scaleY(-1);
 }
 
 .icon-crest {
   position: relative;
-}
-
-.icon-autor:focus-within::after {
-  content: "";
-  position: absolute;
-  cursor: pointer;
-  right: 30px;
-  top: 0;
-  bottom: 0;
-  width: 20px;
-  background: url("../../../../icons/creset_icon.svg") center / contain
-    no-repeat;
 }
 
 .view-of-books {
@@ -252,6 +254,8 @@ label:before {
 @media (max-width: 720px) {
   .btn-autor,
   .btn-raiting {
+    color: transparent;
+
     &::placeholder {
       color: transparent;
       opacity: 1;
