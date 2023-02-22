@@ -1,37 +1,59 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import activePlateIcon from "../../../../icons/buttons/button_plate_active.svg";
-import activeSqureIcon from "../../../../icons/buttons/button_suqare_active.svg";
-import plateIcon from "../../../../icons/buttons/plate.svg";
-import squreIcon from "../../../../icons/buttons/squre-icon.svg";
-import SearchIcon from "../../../../icons/glass_icon.svg";
 import { Loader } from "../loader/loader";
 import { BooksPlate } from "../main-books//books-plate";
 import { BookSqure } from "../main-books/books-squre";
 
-import "./main-page.scss";
 import { MobileSearchView } from "./mobile-search-view/moble-search-view";
+import { PlateSqureButtoms } from "./plate-squre-buttoms/plate-squre-buttoms";
+import { SearchField } from "./search-field/search-field";
+
+import "./main-page.scss";
 
 export const MainPage = () => {
-  const [showSeacthBar, setShowSeacthBar] = useState(false);
-  const [showPlate, setShowPlate] = useState(true);
-  const [sortByRating, setSortByRating] = useState(true);
-  const [searchParam, setSearchParam] = useState("");
   const books = useSelector((state) => state.books.books);
   const error = useSelector((state) => state.books.error);
   const loading = useSelector((state) => state.books.loading);
-  const buttonAutoFocus = useRef(null);
+  const categories = useSelector((state) => state.books.categories);
+  const { category } = useParams();
+
+  const selectedCategoryName = categories.find(
+    (item) => item.path === category
+  );
+  console.log(selectedCategoryName);
+
+  const [showSeacthBar, setShowSeacthBar] = useState(false);
+  const [showPlate, setShowPlate] = useState(true);
+  const [sortByRating, setSortByRating] = useState(false);
+  const [searchParam, setSearchParam] = useState("");
+  const [booksList, setBooks] = useState(books && []);
 
   const toggleShowBar = () => {
     setShowSeacthBar(!showSeacthBar);
   };
 
+  const filterAndSortBooks = () => {
+    return booksList
+      .filter((item) => {
+        return category === "all"
+          ? item
+          : item.categories.includes(selectedCategoryName.name);
+      })
+      .sort((a, b) => {
+        return sortByRating ? a.rating - b.rating : b.rating - a.rating;
+      });
+  };
+
   useEffect(() => {
-    if (buttonAutoFocus.current) {
-      buttonAutoFocus.current.focus();
-    }
-  }, [buttonAutoFocus]);
+    const result = books.filter((item) => {
+      return searchParam.toLowerCase() === ""
+        ? item
+        : item.title.toLowerCase().includes(searchParam.toLowerCase());
+    });
+    setBooks(result);
+  }, [searchParam, books]);
 
   return (
     <React.Fragment>
@@ -46,78 +68,22 @@ export const MainPage = () => {
             <MobileSearchView
               toggleShowBar={toggleShowBar}
               showSeacthBar={showSeacthBar}
+              searchParam={searchParam}
+              setSearchParam={setSearchParam}
             />
-            <div className="search-container">
-              <button
-                type="button"
-                className={
-                  showSeacthBar ? "seacrh-button disable" : "seacrh-button"
-                }
-                onClick={toggleShowBar}
-                data-test-id="button-search-open"
-              >
-                <img src={SearchIcon} alt="buuton-glass" />
-              </button>
-              <label
-                htmlFor="btn-autor"
-                className={showSeacthBar ? "icon-autor disable" : "icon-autor"}
-              >
-                <input
-                  type="search"
-                  onChange={(e) => setSearchParam(e.target.value)}
-                  value={searchParam}
-                  className="btn-autor"
-                  placeholder="Поиск книги или автора..."
-                />
-              </label>
-              <label
-                onClick={() => {
-                  setSortByRating(!sortByRating);
-                }}
-                htmlFor="btn-raiting"
-                className={
-                  showSeacthBar
-                    ? "icon-rating disable"
-                    : sortByRating
-                    ? "icon-rating toggle"
-                    : "icon-rating"
-                }
-              >
-                <button type="text" className="btn-raiting">
-                  По рейтингу
-                </button>
-              </label>
-            </div>
-            <div
-              className={
-                showSeacthBar ? "view-of-books disable" : "view-of-books"
-              }
-            >
-              <button
-                data-test-id="button-menu-view-window"
-                type="button"
-                className={`btnSqure ${showPlate ? "active" : ""}`}
-                ref={buttonAutoFocus}
-                onClick={() => setShowPlate(true)}
-              >
-                <img
-                  src={showPlate ? activeSqureIcon : squreIcon}
-                  alt="squreIcon"
-                />
-              </button>
-              <button
-                type="button"
-                data-test-id="button-menu-view-list"
-                className={`btnLine ${showPlate ? "" : "active"}`}
-                onClick={() => setShowPlate(!true)}
-              >
-                <img
-                  className="btn-plate"
-                  src={showPlate ? plateIcon : activePlateIcon}
-                  alt="plateIcon"
-                />
-              </button>
-            </div>
+            <SearchField
+              setSearchParam={setSearchParam}
+              searchParam={searchParam}
+              sortByRating={sortByRating}
+              setSortByRating={setSortByRating}
+              toggleShowBar={toggleShowBar}
+              showSeacthBar={showSeacthBar}
+            />
+            <PlateSqureButtoms
+              showSeacthBar={showSeacthBar}
+              setShowPlate={setShowPlate}
+              showPlate={showPlate}
+            />
           </div>
           <div className="books">
             <div
@@ -125,41 +91,33 @@ export const MainPage = () => {
                 showPlate ? "books-container" : "books-container-plate"
               }
             >
-              {books
-                .filter((item) => {
-                  return searchParam.toLowerCase() === ""
-                    ? item
-                    : item.title
-                        .toLowerCase()
-                        .includes(searchParam.toLowerCase());
-                })
-                .map((item) => {
-                  return showPlate ? (
-                    <BookSqure
-                      title={item.title}
-                      authors={item.authors}
-                      id={item.id}
-                      image={item.image}
-                      rating={item.rating}
-                      issueYear={item.issueYear}
-                      booking={item.booking}
-                      delivery={item.delivery}
-                      key={item.id}
-                    />
-                  ) : (
-                    <BooksPlate
-                      title={item.title}
-                      authors={item.authors}
-                      id={item.id}
-                      image={item.image}
-                      rating={item.rating}
-                      issueYear={item.issueYear}
-                      booking={item.booking}
-                      delivery={item.delivery}
-                      key={item.id}
-                    />
-                  );
-                })}
+              {filterAndSortBooks(books).map((item) => {
+                return showPlate ? (
+                  <BookSqure
+                    title={item.title}
+                    authors={item.authors}
+                    id={item.id}
+                    image={item.image}
+                    rating={item.rating}
+                    issueYear={item.issueYear}
+                    booking={item.booking}
+                    delivery={item.delivery}
+                    key={item.id}
+                  />
+                ) : (
+                  <BooksPlate
+                    title={item.title}
+                    authors={item.authors}
+                    id={item.id}
+                    image={item.image}
+                    rating={item.rating}
+                    issueYear={item.issueYear}
+                    booking={item.booking}
+                    delivery={item.delivery}
+                    key={item.id}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

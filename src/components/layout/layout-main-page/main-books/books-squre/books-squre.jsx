@@ -15,9 +15,30 @@ export const BookSqure = ({
   issueYear,
   booking,
   delivery,
+  searchParam,
 }) => {
   const IMAGE_URL = "https://strapi.cleverland.by";
   const { category } = useParams();
+  const Highlighted = ({ text = "", highlight = "" }) => {
+    if (!highlight.trim()) {
+      return <span>{text}</span>;
+    }
+    const regex = new RegExp(`(${_.escapeRegExp(highlight)})`, "gi");
+    const parts = text.split(regex);
+    return (
+      <span>
+        {parts
+          .filter((part) => part)
+          .map((part, i) =>
+            regex.test(part) ? (
+              <mark key={i}>{part}</mark>
+            ) : (
+              <span key={i}>{part}</span>
+            )
+          )}
+      </span>
+    );
+  };
 
   return (
     <Link to={`/books/${category}/${id}`} key={id} id="card">

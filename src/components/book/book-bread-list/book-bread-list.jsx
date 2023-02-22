@@ -1,20 +1,26 @@
-import { Link, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { BooksSlice } from "../../../store/books-slice";
 
 import "./book-bread-list.scss";
 
 export const BookBreadList = ({ title = "" }) => {
   const { category } = useParams();
   const categories = useSelector((state) => state.books.categories);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const backToCategory = async () => {
+    navigate(-1);
+    await dispatch(BooksSlice());
+  };
 
   return (
     <div className="book-list-mimi">
       <div className="list-container">
         {category === "all" ? (
           <span>
-            <Link to="/" replace>
-              Все книги
-            </Link>
+            <Link to="/">Все книги</Link>
             {` / ${title}`}
           </span>
         ) : (
@@ -23,9 +29,7 @@ export const BookBreadList = ({ title = "" }) => {
             .map((i) => {
               return (
                 <span key={i.path}>
-                  <Link to="/" replace>
-                    {i.name}
-                  </Link>
+                  <Link onClick={backToCategory}>{i.name}</Link>
                   {` / ${title}`}
                 </span>
               );

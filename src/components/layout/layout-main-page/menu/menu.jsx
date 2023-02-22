@@ -32,7 +32,7 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
     <article className="show-article">
       <nav className="menu-wraper">
         <div className="category-container">
-          <NavLink to="/books/all">
+          <div>
             <h5
               role="presentation"
               onClick={() => setIsTogleMenu(!isTogleMenu)}
@@ -46,7 +46,7 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
                 className={isTogleMenu ? "categoy-icon" : "categoy-icon toggle"}
               />
             </h5>
-          </NavLink>
+          </div>
         </div>
 
         <ul className={isTogleMenu ? "navigation disabled" : "navigation"}>
