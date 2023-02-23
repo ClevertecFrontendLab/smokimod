@@ -1,3 +1,4 @@
+import React from "react";
 import { Link, useParams } from "react-router-dom";
 
 import altBookImage from "../../../../../icons/book-images/catAvatar_icon.svg";
@@ -19,26 +20,6 @@ export const BookSqure = ({
 }) => {
   const IMAGE_URL = "https://strapi.cleverland.by";
   const { category } = useParams();
-  const Highlighted = ({ text = "", highlight = "" }) => {
-    if (!highlight.trim()) {
-      return <span>{text}</span>;
-    }
-    const regex = new RegExp(`(${_.escapeRegExp(highlight)})`, "gi");
-    const parts = text.split(regex);
-    return (
-      <span>
-        {parts
-          .filter((part) => part)
-          .map((part, i) =>
-            regex.test(part) ? (
-              <mark key={i}>{part}</mark>
-            ) : (
-              <span key={i}>{part}</span>
-            )
-          )}
-      </span>
-    );
-  };
 
   return (
     <Link to={`/books/${category}/${id}`} key={id} id="card">
@@ -66,6 +47,7 @@ export const BookSqure = ({
             <div className="book-rating">ещё нет отзывов</div>
           )}
           <p className="subtitle">{title}</p>
+
           <div className="book-autor">
             {authors}, {issueYear}
           </div>

@@ -1,13 +1,17 @@
 .books-container {
   display: flex;
   flex-wrap: wrap;
+  min-height: 300px;
   height: 100%;
   width: 100%;
   gap: 24px 21.5px;
 }
-.highlight {
-  font-weight: bold;
-  color: red;
+.highlighter {
+  .highlighted {
+    background-color: #ffeaa7;
+    color: #e17055;
+    box-shadow: -3px 0 0 #ffeaa7, 3px 0 0 #ffeaa7; // Creates an illusion of a wider span, while not affecting the actual width.
+  }
 }
 
 .book-card {
@@ -160,6 +164,7 @@
   .books-container {
     justify-content: center;
     gap: 16px;
+    min-height: 300px;
   }
   .book-img-container {
     width: 256px;

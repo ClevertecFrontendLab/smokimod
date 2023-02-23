@@ -6,13 +6,13 @@ import { BookComents } from "./book-coments/book-coments";
 import { BookRating } from "./book-rating/book-rating";
 import { BookSlider } from "./book-slider/book-slider";
 import { useEffect } from "react";
-import { BookBreadList } from "./book-bread-list/book-bread-list";
 import { CurrentBookSlice } from "../../store/books-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../layout/layout-main-page/loader/loader";
 import { CategoryOfBooksSlice } from "../../store/books-slice";
 
 import "./book-page.scss";
+import { BreadCrumbs } from "./bread-crumbs/bread-crumbs";
 
 export const BookPage = () => {
   const { id } = useParams();
@@ -48,7 +48,7 @@ export const BookPage = () => {
         <Loader />
       ) : (
         <div className="book-container">
-          <BookBreadList title={title} />
+          <BreadCrumbs title={title} />
           {error ? null : (
             <div className="book-holder">
               <section className="book-page">

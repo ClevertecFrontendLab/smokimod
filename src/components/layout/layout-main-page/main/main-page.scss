@@ -1,4 +1,20 @@
 $bgcolor: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
+.books {
+  min-height: 400px;
+  justify-content: center;
+  align-items: center;
+}
+.no-results,
+.no-category {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  color: #a7a7a7;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
 .article-section.hidden {
   visibility: hidden;
@@ -73,9 +89,17 @@ label:before {
 }
 
 @media (max-width: 320px) {
+  .no-results,
+  .no-category {
+    font-size: 18px;
+    line-height: 28px;
+    width: 288px;
+    text-align: center;
+  }
   .seacrh-button.disable {
     display: none;
   }
+
   .seacrh-button {
     display: block;
     display: flex;

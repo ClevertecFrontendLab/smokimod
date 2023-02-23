@@ -17,10 +17,10 @@ export const BooksPlate = ({
   delivery,
 }) => {
   const IMAGE_URL = "https://strapi.cleverland.by";
-  const { categories } = useParams();
+  const { category } = useParams();
 
   return (
-    <Link to={`/books/${categories}/${id}`} key={id}>
+    <Link to={`/books/${category}/${id}`} key={id}>
       <div className="plate" data-test-id="card">
         <div className="plate-container">
           <div className="plate-img-container">

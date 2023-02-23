@@ -19,11 +19,6 @@ export const MainPage = () => {
   const categories = useSelector((state) => state.books.categories);
   const { category } = useParams();
 
-  const selectedCategoryName = categories.find(
-    (item) => item.path === category
-  );
-  console.log(selectedCategoryName);
-
   const [showSeacthBar, setShowSeacthBar] = useState(false);
   const [showPlate, setShowPlate] = useState(true);
   const [sortByRating, setSortByRating] = useState(false);
@@ -35,6 +30,10 @@ export const MainPage = () => {
   };
 
   const filterAndSortBooks = () => {
+    const selectedCategoryName = categories.find(
+      (item) => item.path === category
+    );
+
     return booksList
       .filter((item) => {
         return category === "all"
@@ -91,33 +90,40 @@ export const MainPage = () => {
                 showPlate ? "books-container" : "books-container-plate"
               }
             >
-              {filterAndSortBooks(books).map((item) => {
-                return showPlate ? (
-                  <BookSqure
-                    title={item.title}
-                    authors={item.authors}
-                    id={item.id}
-                    image={item.image}
-                    rating={item.rating}
-                    issueYear={item.issueYear}
-                    booking={item.booking}
-                    delivery={item.delivery}
-                    key={item.id}
-                  />
-                ) : (
-                  <BooksPlate
-                    title={item.title}
-                    authors={item.authors}
-                    id={item.id}
-                    image={item.image}
-                    rating={item.rating}
-                    issueYear={item.issueYear}
-                    booking={item.booking}
-                    delivery={item.delivery}
-                    key={item.id}
-                  />
-                );
-              })}
+              {booksList.length > 0 ? (
+                filterAndSortBooks(books).map((item) => {
+                  return showPlate ? (
+                    <BookSqure
+                      title={item.title}
+                      authors={item.authors}
+                      id={item.id}
+                      image={item.image}
+                      rating={item.rating}
+                      issueYear={item.issueYear}
+                      booking={item.booking}
+                      delivery={item.delivery}
+                      key={item.id}
+                      searchParam={searchParam}
+                    />
+                  ) : (
+                    <BooksPlate
+                      title={item.title}
+                      authors={item.authors}
+                      id={item.id}
+                      image={item.image}
+                      rating={item.rating}
+                      issueYear={item.issueYear}
+                      booking={item.booking}
+                      delivery={item.delivery}
+                      key={item.id}
+                    />
+                  );
+                })
+              ) : (
+                <div className="no-results">
+                  <div>По запросу ничего не найдено</div>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -1,17 +1,17 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { BooksSlice } from "../../../store/books-slice";
 
-import "./book-bread-list.scss";
+import "./bread-crumbs.scss";
 
-export const BookBreadList = ({ title = "" }) => {
+export const BreadCrumbs = ({ title = "" }) => {
   const { category } = useParams();
   const categories = useSelector((state) => state.books.categories);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const backToCategory = async () => {
-    navigate(-1);
+    navigate(`/books/${category}`);
     await dispatch(BooksSlice());
   };
 
@@ -20,7 +20,9 @@ export const BookBreadList = ({ title = "" }) => {
       <div className="list-container">
         {category === "all" ? (
           <span>
-            <Link to="/">Все книги</Link>
+            <button className="button-link" onClick={backToCategory}>
+              Все книги
+            </button>
             {` / ${title}`}
           </span>
         ) : (
@@ -29,7 +31,9 @@ export const BookBreadList = ({ title = "" }) => {
             .map((i) => {
               return (
                 <span key={i.path}>
-                  <Link onClick={backToCategory}>{i.name}</Link>
+                  <button className="button-link" onClick={backToCategory}>
+                    {i.name}
+                  </button>
                   {` / ${title}`}
                 </span>
               );

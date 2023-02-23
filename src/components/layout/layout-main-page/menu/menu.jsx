@@ -74,7 +74,7 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
                   {item.name}
                 </NavLink>
                 <span>
-                  {books.filter((i) => i.categories[0] === item.name).length}
+                  {books.filter((i) => i.categories.includes(item.name)).length}
                 </span>
               </li>
             );
