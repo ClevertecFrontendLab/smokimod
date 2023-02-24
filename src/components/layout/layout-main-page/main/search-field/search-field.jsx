@@ -22,7 +22,7 @@ export const SearchField = ({
       >
         <input
           className={showSeacthBar ? "search-autor show" : "search-autor"}
-          placeholder="Поиск книги или автора..."
+          placeholder="Поиск книги или автора…"
           value={searchParam}
           onChange={(e) => setSearchParam(e.target.value)}
           data-test-id="input-search"

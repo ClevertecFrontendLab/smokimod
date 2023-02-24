@@ -66,25 +66,21 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
 
           {categories.map((item) => {
             return (
-              <li
-                key={item.path}
-                data-test-id={
-                  showArticle ? `burger-${category}` : `navigation-${category}`
-                }
-              >
+              <li key={item.path}>
                 <NavLink
                   className={setActive}
                   to={`/books/${item.path}`}
                   onClick={showArticle ? hanbdleClose : null}
+                  data-test-id={`${showArticle ? "burger" : "navigation"}-${
+                    item.path
+                  }`}
                 >
                   {item.name}
                 </NavLink>
                 <span
-                  data-test-id={
-                    showArticle
-                      ? `burger-book-count-for-${category}`
-                      : `navigation-book-count-for-${category}`
-                  }
+                  data-test-id={`${
+                    showArticle ? "burger" : "navigation"
+                  }-book-count-for-${item.path}`}
                 >
                   {books.filter((i) => i.categories.includes(item.name)).length}
                 </span>

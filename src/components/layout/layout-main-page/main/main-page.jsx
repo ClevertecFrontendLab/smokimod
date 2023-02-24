@@ -22,6 +22,7 @@ export const MainPage = () => {
   const [showPlate, setShowPlate] = useState(true);
   const [sortByRating, setSortByRating] = useState(false);
   const [searchParam, setSearchParam] = useState("");
+  console.log(sortByRating);
 
   const selectedCategoryName = categories.find(
     (item) => item.path === category
@@ -48,7 +49,7 @@ export const MainPage = () => {
     return sortByName.slice().sort((a, b) => {
       return sortByRating ? a.rating - b.rating : b.rating - a.rating;
     });
-  }, [category, searchParam, books, selectedCategoryName]);
+  }, [category, searchParam, books, selectedCategoryName, sortByRating]);
 
   return (
     <React.Fragment>
@@ -117,10 +118,7 @@ export const MainPage = () => {
                   <div>По запросу ничего не найдено</div>
                 </div>
               ) : (
-                <div
-                  className="no-results"
-                  data-test-id="search-result-not-found"
-                >
+                <div className="no-category" data-test-id="empty-category">
                   <div>В этой категории книг ещё нет</div>
                 </div>
               )}

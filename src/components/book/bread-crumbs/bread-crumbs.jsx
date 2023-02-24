@@ -29,35 +29,6 @@ export const BreadCrumbs = ({ title = "" }) => {
         </Link>{" "}
         <span className="separator">/</span>{" "}
         <span data-test-id="book-name">{title}</span>
-        {/* {category === "all" ? (
-          <span>
-            <button
-              className="button-link"
-              onClick={backToCategory}
-              data-test-id="breadcrumbs-link"
-            >
-              Все книги
-            </button>
-            {` / ${title}`}
-          </span>
-        ) : (
-          categories
-            .filter((item) => item.path === category)
-            .map((i) => {
-              return (
-                <span key={i.path}>
-                  <button
-                    className="button-link"
-                    onClick={backToCategory}
-                    data-test-id="breadcrumbs-link"
-                  >
-                    {i.name}
-                  </button>
-                  {` / ${title}`}
-                </span>
-              );
-            })
-        )} */}
       </div>
     </div>
   );
