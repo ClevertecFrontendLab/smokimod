@@ -25,18 +25,6 @@ export const MobileSearchView = ({
         value={searchParam}
         onChange={(e) => setSearchParam(e.target.value)}
       />
-      <button
-        type="button"
-        className="cross-button"
-        data-test-id="button-search-close"
-      >
-        <img
-          src={crossIcon}
-          alt="cross-icon"
-          onClick={toggleShowBar}
-          role="presentation"
-        />
-      </button>
     </div>
   );
 };

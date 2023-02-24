@@ -1,4 +1,5 @@
-import SearchIcon from "../../../../../icons/glass_icon.svg";
+import SearchIcon from "../../../../../icons/glass_320_icon.svg";
+import crossIcon from "../../../../../icons/creset_icon.svg";
 
 import "./search-field.scss";
 
@@ -12,29 +13,48 @@ export const SearchField = ({
 }) => {
   return (
     <div className="search-container">
-      <button
-        type="button"
-        className={showSeacthBar ? "seacrh-button disable" : "seacrh-button"}
-        onClick={toggleShowBar}
-        data-test-id="button-search-open"
-      >
-        <img src={SearchIcon} alt="buuton-glass" />
-      </button>
-      <label
-        htmlFor="btn-autor"
-        className={showSeacthBar ? "icon-autor disable" : "icon-autor"}
+      <div
+        className={
+          showSeacthBar
+            ? "search-input-container show"
+            : "search-input-container"
+        }
       >
         <input
-          type="search"
-          onChange={(e) => setSearchParam(e.target.value)}
-          value={searchParam}
-          className="btn-autor"
+          className={showSeacthBar ? "search-autor show" : "search-autor"}
           placeholder="Поиск книги или автора..."
+          value={searchParam}
+          onChange={(e) => setSearchParam(e.target.value)}
+          data-test-id="input-search"
         />
-      </label>
+
+        {showSeacthBar ? (
+          <button
+            type="button"
+            className="cross-button"
+            data-test-id="button-search-close"
+          >
+            <img
+              src={crossIcon}
+              alt="cross-icon"
+              onClick={toggleShowBar}
+              role="presentation"
+            />
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="search-button"
+            onClick={toggleShowBar}
+            data-test-id="button-search-open"
+          >
+            <img src={SearchIcon} alt="cross-icon" />
+          </button>
+        )}
+      </div>
+
       <label
         htmlFor="btn-raiting"
-        onClick={() => setSortByRating(!sortByRating)}
         className={
           showSeacthBar
             ? "icon-rating disable"
@@ -43,7 +63,12 @@ export const SearchField = ({
             : "icon-rating"
         }
       >
-        <button type="text" className="btn-raiting">
+        <button
+          onClick={() => setSortByRating(!sortByRating)}
+          type="button"
+          className="btn-raiting"
+          data-test-id="sort-rating-button"
+        >
           По рейтингу
         </button>
       </label>

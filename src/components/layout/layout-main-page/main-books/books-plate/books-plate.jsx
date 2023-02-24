@@ -32,7 +32,7 @@ export const BooksPlate = ({
           </div>
           <div className="plate-book-info">
             <div className="book-info">
-              <h4>{title}</h4>
+              <h4 data-test-id="highlight-matches">{title}</h4>
               <div className="plate-book-autor">
                 {authors}, {issueYear}
               </div>

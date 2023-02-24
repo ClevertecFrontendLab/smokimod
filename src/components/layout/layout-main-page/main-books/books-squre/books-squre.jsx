@@ -46,7 +46,9 @@ export const BookSqure = ({
           ) : (
             <div className="book-rating">ещё нет отзывов</div>
           )}
-          <p className="subtitle">{title}</p>
+          <p className="subtitle" data-test-id="highlight-matches">
+            {title}
+          </p>
 
           <div className="book-autor">
             {authors}, {issueYear}

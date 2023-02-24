@@ -10,6 +10,7 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
   const loading = useSelector((state) => state.books.loading);
   const books = useSelector((state) => state.books.books);
   const error = useSelector((state) => state.books.error);
+  const { category } = useParams();
 
   const categories = useSelector((state) => state.books.categories);
   const [isTogleMenu, setIsTogleMenu] = useState(false);
@@ -65,7 +66,12 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
 
           {categories.map((item) => {
             return (
-              <li key={item.path}>
+              <li
+                key={item.path}
+                data-test-id={
+                  showArticle ? `burger-${category}` : `navigation-${category}`
+                }
+              >
                 <NavLink
                   className={setActive}
                   to={`/books/${item.path}`}
@@ -73,7 +79,13 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
                 >
                   {item.name}
                 </NavLink>
-                <span>
+                <span
+                  data-test-id={
+                    showArticle
+                      ? `burger-book-count-for-${category}`
+                      : `navigation-book-count-for-${category}`
+                  }
+                >
                   {books.filter((i) => i.categories.includes(item.name)).length}
                 </span>
               </li>

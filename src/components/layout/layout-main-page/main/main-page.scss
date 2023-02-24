@@ -6,14 +6,16 @@ $bgcolor: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
 }
 .no-results,
 .no-category {
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 40px;
-  color: #a7a7a7;
   align-self: center;
   display: flex;
   justify-content: center;
   width: 100%;
+  div {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    color: #a7a7a7;
+  }
 }
 
 .article-section.hidden {
@@ -100,20 +102,20 @@ label:before {
     display: none;
   }
 
-  .seacrh-button {
-    display: block;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    img {
-      filter: invert(81%) sepia(5%) saturate(14%) hue-rotate(350deg)
-        brightness(83%) contrast(87%);
-    }
-  }
+  // .seacrh-button {
+  //   display: block;
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   width: 32px;
+  //   height: 32px;
+  //   img {
+  //     filter: invert(81%) sepia(5%) saturate(14%) hue-rotate(350deg)
+  //       brightness(83%) contrast(87%);
+  //   }
+  // }
 
-  input[type="text"] {
+  input[type="search"] {
     padding-left: 0;
   }
 

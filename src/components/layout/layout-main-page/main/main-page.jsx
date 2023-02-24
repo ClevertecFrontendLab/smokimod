@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -6,7 +6,6 @@ import { Loader } from "../loader/loader";
 import { BooksPlate } from "../main-books//books-plate";
 import { BookSqure } from "../main-books/books-squre";
 
-import { MobileSearchView } from "./mobile-search-view/moble-search-view";
 import { PlateSqureButtoms } from "./plate-squre-buttoms/plate-squre-buttoms";
 import { SearchField } from "./search-field/search-field";
 
@@ -23,36 +22,33 @@ export const MainPage = () => {
   const [showPlate, setShowPlate] = useState(true);
   const [sortByRating, setSortByRating] = useState(false);
   const [searchParam, setSearchParam] = useState("");
-  const [booksList, setBooks] = useState(books && []);
+
+  const selectedCategoryName = categories.find(
+    (item) => item.path === category
+  );
 
   const toggleShowBar = () => {
-    setShowSeacthBar(!showSeacthBar);
+    return window.innerWidth <= 320
+      ? setShowSeacthBar(!showSeacthBar)
+      : "disabled";
   };
 
-  const filterAndSortBooks = () => {
-    const selectedCategoryName = categories.find(
-      (item) => item.path === category
-    );
+  const finallBooks = useMemo(() => {
+    const filterByCategory =
+      category === "all"
+        ? books
+        : books.filter((item) => {
+            return item.categories.includes(selectedCategoryName.name);
+          });
 
-    return booksList
-      .filter((item) => {
-        return category === "all"
-          ? item
-          : item.categories.includes(selectedCategoryName.name);
-      })
-      .sort((a, b) => {
-        return sortByRating ? a.rating - b.rating : b.rating - a.rating;
-      });
-  };
-
-  useEffect(() => {
-    const result = books.filter((item) => {
-      return searchParam.toLowerCase() === ""
-        ? item
-        : item.title.toLowerCase().includes(searchParam.toLowerCase());
+    const sortByName = filterByCategory.filter((item) => {
+      return item.title.toLowerCase().includes(searchParam.toLowerCase());
     });
-    setBooks(result);
-  }, [searchParam, books]);
+
+    return sortByName.slice().sort((a, b) => {
+      return sortByRating ? a.rating - b.rating : b.rating - a.rating;
+    });
+  }, [category, searchParam, books, selectedCategoryName]);
 
   return (
     <React.Fragment>
@@ -64,12 +60,6 @@ export const MainPage = () => {
       >
         <div className="navigation-wraper">
           <div className="navigation-menu">
-            <MobileSearchView
-              toggleShowBar={toggleShowBar}
-              showSeacthBar={showSeacthBar}
-              searchParam={searchParam}
-              setSearchParam={setSearchParam}
-            />
             <SearchField
               setSearchParam={setSearchParam}
               searchParam={searchParam}
@@ -90,8 +80,8 @@ export const MainPage = () => {
                 showPlate ? "books-container" : "books-container-plate"
               }
             >
-              {booksList.length > 0 ? (
-                filterAndSortBooks(books).map((item) => {
+              {finallBooks.length > 0 ? (
+                finallBooks.map((item) => {
                   return showPlate ? (
                     <BookSqure
                       title={item.title}
@@ -119,9 +109,19 @@ export const MainPage = () => {
                     />
                   );
                 })
-              ) : (
-                <div className="no-results">
+              ) : finallBooks.length === 0 && searchParam !== "" ? (
+                <div
+                  className="no-results"
+                  data-test-id="search-result-not-found"
+                >
                   <div>По запросу ничего не найдено</div>
+                </div>
+              ) : (
+                <div
+                  className="no-results"
+                  data-test-id="search-result-not-found"
+                >
+                  <div>В этой категории книг ещё нет</div>
                 </div>
               )}
             </div>

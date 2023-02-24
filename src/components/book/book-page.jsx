@@ -57,7 +57,7 @@ export const BookPage = () => {
                     <BookSlider images={images} />
                   </div>
                   <div className="detail-head">
-                    <h3>{title}</h3>
+                    <h3 data-test-id="book-title">{title}</h3>
                     <div className="book-subtitle">
                       {authors}, {issueYear}
                     </div>
