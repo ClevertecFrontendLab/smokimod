@@ -10,6 +10,7 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
   const loading = useSelector((state) => state.books.loading);
   const books = useSelector((state) => state.books.books);
   const error = useSelector((state) => state.books.error);
+  const { category } = useParams();
 
   const categories = useSelector((state) => state.books.categories);
   const [isTogleMenu, setIsTogleMenu] = useState(false);
@@ -32,7 +33,7 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
     <article className="show-article">
       <nav className="menu-wraper">
         <div className="category-container">
-          <NavLink to="/books/all">
+          <div>
             <h5
               role="presentation"
               onClick={() => setIsTogleMenu(!isTogleMenu)}
@@ -46,35 +47,42 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
                 className={isTogleMenu ? "categoy-icon" : "categoy-icon toggle"}
               />
             </h5>
-          </NavLink>
+          </div>
         </div>
 
         <ul className={isTogleMenu ? "navigation disabled" : "navigation"}>
-          {loading || error ? null : (
-            <li className="first-li">
-              <NavLink
-                to="/books/all"
-                className={setActive}
-                data-test-id={showArticle ? "burger-books" : "navigation-books"}
-                onClick={showArticle ? hanbdleClose : null}
-              >
-                Все книги
-              </NavLink>
-            </li>
-          )}
-
-          {categories.map((item) => {
-            return (
+          {categories.map((item, i) => {
+            return i === 0 ? (
+              <li className="first-li">
+                <NavLink
+                  to="/books/all"
+                  className={setActive}
+                  data-test-id={
+                    showArticle ? "burger-books" : "navigation-books"
+                  }
+                  onClick={showArticle ? hanbdleClose : null}
+                >
+                  Все книги
+                </NavLink>
+              </li>
+            ) : (
               <li key={item.path}>
                 <NavLink
                   className={setActive}
                   to={`/books/${item.path}`}
                   onClick={showArticle ? hanbdleClose : null}
+                  data-test-id={`${showArticle ? "burger" : "navigation"}-${
+                    item.path
+                  }`}
                 >
                   {item.name}
                 </NavLink>
-                <span>
-                  {books.filter((i) => i.categories[0] === item.name).length}
+                <span
+                  data-test-id={`${
+                    showArticle ? "burger" : "navigation"
+                  }-book-count-for-${item.path}`}
+                >
+                  {books.filter((i) => i.categories.includes(item.name)).length}
                 </span>
               </li>
             );

@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-
+import { HighLighter } from "../highlighter/highlighter";
 import altBookImage from "../../../../../icons/book-images/catAvatar_icon.svg";
 import emtyStar from "../../../../../icons/book-images/emptyStar_icon.svg";
 import star from "../../../../../icons/book-images/start_icon.svg";
@@ -15,6 +15,7 @@ export const BookSqure = ({
   issueYear,
   booking,
   delivery,
+  searchParam,
 }) => {
   const IMAGE_URL = "https://strapi.cleverland.by";
   const { category } = useParams();
@@ -44,11 +45,17 @@ export const BookSqure = ({
           ) : (
             <div className="book-rating">ещё нет отзывов</div>
           )}
-          <p className="subtitle">{title}</p>
+
+          <p className="subtitle">
+            <HighLighter
+              text={title}
+              highlight={searchParam}
+              highlightedItemClass="highlight"
+            />
+          </p>
           <div className="book-autor">
             {authors}, {issueYear}
           </div>
-
           <button
             id={booking ? booking?.id : delivery ? delivery?.id : ""}
             type="button"

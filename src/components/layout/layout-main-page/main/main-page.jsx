@@ -1,35 +1,57 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import activePlateIcon from "../../../../icons/buttons/button_plate_active.svg";
-import activeSqureIcon from "../../../../icons/buttons/button_suqare_active.svg";
-import plateIcon from "../../../../icons/buttons/plate.svg";
-import squreIcon from "../../../../icons/buttons/squre-icon.svg";
-import crossIcon from "../../../../icons/creset_icon.svg";
-import SearchIcon from "../../../../icons/glass_icon.svg";
 import { Loader } from "../loader/loader";
 import { BooksPlate } from "../main-books//books-plate";
 import { BookSqure } from "../main-books/books-squre";
 
+import { PlateSqureButtoms } from "./plate-squre-buttoms/plate-squre-buttoms";
+import { SearchField } from "./search-field/search-field";
+
 import "./main-page.scss";
 
 export const MainPage = () => {
-  const [showSeacthBar, setShowSeacthBar] = useState(false);
-  const [showPlate, setShowPlate] = useState(true);
   const books = useSelector((state) => state.books.books);
   const error = useSelector((state) => state.books.error);
   const loading = useSelector((state) => state.books.loading);
-  const buttonAutoFocus = useRef(null);
+  const categories = useSelector((state) => state.books.categories);
+  const { category } = useParams();
+
+  const [finallBooks, setfinallBooks] = useState([] && books);
+  const [showSeacthBar, setShowSeacthBar] = useState(false);
+  const [showPlate, setShowPlate] = useState(true);
+  const [sortByRating, setSortByRating] = useState(false);
+  const [searchParam, setSearchParam] = useState("");
+
+  const chooseCategoryByName = categories.find(
+    (item) => item.path === category
+  );
 
   const toggleShowBar = () => {
-    setShowSeacthBar(!showSeacthBar);
+    return window.innerWidth <= 320
+      ? setShowSeacthBar(!showSeacthBar)
+      : "disabled";
   };
 
   useEffect(() => {
-    if (buttonAutoFocus.current) {
-      buttonAutoFocus.current.focus();
-    }
-  }, [buttonAutoFocus]);
+    const filterByCategory =
+      category === "all"
+        ? books
+        : books.filter((item) => {
+            return item.categories.includes(chooseCategoryByName.name);
+          });
+
+    const sortByName = filterByCategory.filter((item) => {
+      return item.title.toLowerCase().includes(searchParam.toLowerCase());
+    });
+
+    const sort = sortByName.sort((a, b) => {
+      return sortByRating ? a.rating - b.rating : b.rating - a.rating;
+    });
+
+    setfinallBooks(sort);
+  }, [category, searchParam, books, chooseCategoryByName, sortByRating]);
 
   return (
     <React.Fragment>
@@ -41,97 +63,19 @@ export const MainPage = () => {
       >
         <div className="navigation-wraper">
           <div className="navigation-menu">
-            <div
-              className={
-                showSeacthBar
-                  ? "search-input-container"
-                  : "search-input-container disabled"
-              }
-            >
-              <input
-                className="search-input"
-                placeholder="Поиск книги или автора..."
-                type="text"
-                data-test-id="input-search"
-              />
-              <button
-                type="button"
-                className="cross-button"
-                data-test-id="button-search-close"
-              >
-                <img
-                  src={crossIcon}
-                  alt="cross-icon"
-                  onClick={toggleShowBar}
-                  role="presentation"
-                />
-              </button>
-            </div>
-            <div className="search-container">
-              <button
-                type="button"
-                className={
-                  showSeacthBar ? "seacrh-button disable" : "seacrh-button"
-                }
-                onClick={toggleShowBar}
-                data-test-id="button-search-open"
-              >
-                <img src={SearchIcon} alt="buuton-glass" />
-              </button>
-              <label
-                htmlFor="btn-autor"
-                className={showSeacthBar ? "icon-autor disable" : "icon-autor"}
-              >
-                <input
-                  type="text"
-                  className="btn-autor"
-                  placeholder="Поиск книги или автора..."
-                />
-                <span className="icon-crest" />
-              </label>
-              <label
-                htmlFor="btn-raiting"
-                className={
-                  showSeacthBar ? "icon-rating disable" : "icon-rating"
-                }
-              >
-                <input
-                  type="text"
-                  className="btn-raiting"
-                  placeholder="По рейтингу"
-                />
-              </label>
-            </div>
-            <div
-              className={
-                showSeacthBar ? "view-of-books disable" : "view-of-books"
-              }
-            >
-              <button
-                data-test-id="button-menu-view-window"
-                type="button"
-                className={`btnSqure ${showPlate ? "active" : ""}`}
-                ref={buttonAutoFocus}
-                onClick={() => setShowPlate(true)}
-              >
-                <img
-                  src={showPlate ? activeSqureIcon : squreIcon}
-                  alt="squreIcon"
-                />
-              </button>
-              <button
-                type="button"
-                data-test-id="button-menu-view-list"
-                className={`btnLine ${showPlate ? "" : "active"}`}
-                onClick={() => setShowPlate(!true)}
-              >
-                <img
-                  className="btn-plate"
-                  src={showPlate ? plateIcon : activePlateIcon}
-                  alt="plateIcon"
-                />
-              </button>
-            </div>
+            <SearchField
+              setSearchParam={setSearchParam}
+              searchParam={searchParam}
+              sortByRating={sortByRating}
+              setSortByRating={setSortByRating}
+              toggleShowBar={toggleShowBar}
+              showSeacthBar={showSeacthBar}
+            />
+            <PlateSqureButtoms
+              showSeacthBar={showSeacthBar}
+              setShowPlate={setShowPlate}
+              showPlate={showPlate}
+            />
           </div>
           <div className="books">
             <div
@@ -139,35 +83,48 @@ export const MainPage = () => {
                 showPlate ? "books-container" : "books-container-plate"
               }
             >
-              {books && books.length > 0
-                ? books.map((item) => {
-                    return showPlate ? (
-                      <BookSqure
-                        title={item.title}
-                        authors={item.authors}
-                        id={item.id}
-                        image={item.image}
-                        rating={item.rating}
-                        issueYear={item.issueYear}
-                        booking={item.booking}
-                        delivery={item.delivery}
-                        key={item.id}
-                      />
-                    ) : (
-                      <BooksPlate
-                        title={item.title}
-                        authors={item.authors}
-                        id={item.id}
-                        image={item.image}
-                        rating={item.rating}
-                        issueYear={item.issueYear}
-                        booking={item.booking}
-                        delivery={item.delivery}
-                        key={item.id}
-                      />
-                    );
-                  })
-                : null}
+              {finallBooks.length > 0 ? (
+                finallBooks.map((item) => {
+                  return showPlate ? (
+                    <BookSqure
+                      title={item.title}
+                      authors={item.authors}
+                      id={item.id}
+                      image={item.image}
+                      rating={item.rating}
+                      issueYear={item.issueYear}
+                      booking={item.booking}
+                      delivery={item.delivery}
+                      key={item.id}
+                      searchParam={searchParam}
+                    />
+                  ) : (
+                    <BooksPlate
+                      title={item.title}
+                      authors={item.authors}
+                      id={item.id}
+                      image={item.image}
+                      rating={item.rating}
+                      issueYear={item.issueYear}
+                      booking={item.booking}
+                      delivery={item.delivery}
+                      key={item.id}
+                      searchParam={searchParam}
+                    />
+                  );
+                })
+              ) : finallBooks.length === 0 && searchParam !== "" ? (
+                <div
+                  className="no-results"
+                  data-test-id="search-result-not-found"
+                >
+                  <div>По запросу ничего не найдено</div>
+                </div>
+              ) : (
+                <div className="no-category" data-test-id="empty-category">
+                  <div>В этой категории книг ещё нет</div>
+                </div>
+              )}
             </div>
           </div>
         </div>

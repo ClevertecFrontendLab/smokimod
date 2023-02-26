@@ -20,6 +20,19 @@
     margin: 0 12px;
   }
 }
+.separator {
+  padding: 0 5px;
+}
+.button-link {
+  font-size: 14px;
+  background: none;
+  color: inherit;
+  border: none;
+  text-align: start;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+}
 @media (min-width: 768px) and (max-width: 1440px) {
   .book-list-mimi {
     .list-container {

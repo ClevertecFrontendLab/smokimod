@@ -1,9 +1,11 @@
 .books-container-plate {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   height: 100%;
   width: 100%;
   gap: 16px;
+  min-height: 300px;
 }
 .plate {
   max-width: 825px;
@@ -188,6 +190,9 @@
 }
 
 @media (max-width: 320px) {
+  .books-container-plate {
+    justify-content: center;
+  }
   .plate-container {
     gap: 8px;
     flex-direction: row;
