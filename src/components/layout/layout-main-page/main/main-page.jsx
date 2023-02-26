@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -18,13 +18,13 @@ export const MainPage = () => {
   const categories = useSelector((state) => state.books.categories);
   const { category } = useParams();
 
+  const [finallBooks, setfinallBooks] = useState([] && books);
   const [showSeacthBar, setShowSeacthBar] = useState(false);
   const [showPlate, setShowPlate] = useState(true);
   const [sortByRating, setSortByRating] = useState(false);
   const [searchParam, setSearchParam] = useState("");
-  console.log(sortByRating);
 
-  const selectedCategoryName = categories.find(
+  const chooseCategoryByName = categories.find(
     (item) => item.path === category
   );
 
@@ -34,22 +34,24 @@ export const MainPage = () => {
       : "disabled";
   };
 
-  const finallBooks = useMemo(() => {
+  useEffect(() => {
     const filterByCategory =
       category === "all"
         ? books
         : books.filter((item) => {
-            return item.categories.includes(selectedCategoryName.name);
+            return item.categories.includes(chooseCategoryByName.name);
           });
 
     const sortByName = filterByCategory.filter((item) => {
       return item.title.toLowerCase().includes(searchParam.toLowerCase());
     });
 
-    return sortByName.slice().sort((a, b) => {
+    const sort = sortByName.sort((a, b) => {
       return sortByRating ? a.rating - b.rating : b.rating - a.rating;
     });
-  }, [category, searchParam, books, selectedCategoryName, sortByRating]);
+
+    setfinallBooks(sort);
+  }, [category, searchParam, books, chooseCategoryByName, sortByRating]);
 
   return (
     <React.Fragment>
@@ -107,6 +109,7 @@ export const MainPage = () => {
                       booking={item.booking}
                       delivery={item.delivery}
                       key={item.id}
+                      searchParam={searchParam}
                     />
                   );
                 })

@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import { HighLighter } from "../highlighter/highlighter";
 
 import altBookImage from "../../../../../icons/book-images/catAvatar_icon.svg";
 import emtyStar from "../../../../../icons/book-images/emptyStar_icon.svg";
@@ -15,6 +16,7 @@ export const BooksPlate = ({
   issueYear,
   booking,
   delivery,
+  searchParam,
 }) => {
   const IMAGE_URL = "https://strapi.cleverland.by";
   const { category } = useParams();
@@ -32,7 +34,13 @@ export const BooksPlate = ({
           </div>
           <div className="plate-book-info">
             <div className="book-info">
-              <h4 data-test-id="highlight-matches">{title}</h4>
+              <h4>
+                <HighLighter
+                  text={title}
+                  highlight={searchParam}
+                  highlightedItemClass="highlight"
+                />
+              </h4>
               <div className="plate-book-autor">
                 {authors}, {issueYear}
               </div>
