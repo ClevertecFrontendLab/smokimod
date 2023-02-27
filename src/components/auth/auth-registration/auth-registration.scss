@@ -1,0 +1,97 @@
+.register-form {
+  width: 528px;
+  height: 492px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 48px 56px;
+  .register-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 32px;
+  }
+}
+.register-steps {
+  h2 {
+    margin: 0;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    color: #363636;
+  }
+  span {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: #363636;
+  }
+}
+.reg-required-inputs-container {
+  display: flex;
+  flex-direction: column;
+  height: 184px;
+  gap: 36px;
+  input {
+    font-size: 14px;
+    line-height: 18px;
+    background: #f9f9fa;
+    border-radius: 4px;
+    width: 416px;
+    height: 56px;
+    border: none;
+    border-bottom: solid 1px #bfc4c9;
+    padding-left: 12px;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  label {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.2px;
+    color: #a7a7a7;
+    div {
+      padding-left: 12px;
+    }
+  }
+}
+.next-move-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  height: 92px;
+  .reg-next-moveBtn {
+    width: 416px;
+    height: 52px;
+    background: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
+    border-radius: 30px;
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .next-move-question {
+    font-size: 16px;
+    line-height: 24px;
+    color: #727272;
+  }
+  .logIn-link {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    color: #363636;
+    padding-left: 16px;
+  }
+}
