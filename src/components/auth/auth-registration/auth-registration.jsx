@@ -1,5 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
+import { RegStepOne } from "./reg-step-one/reg-step-one";
+import { RegStepTwo } from "./reg-step-two/reg-step-two";
+import { RegStepThree } from "./reg-step-three/reg-step-three";
 
 import "./auth-registration.scss";
 
@@ -8,66 +13,38 @@ export const AuthRegistration = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm({
     mode: "onBlur",
   });
+  const [step, setStep] = useState(1);
   const onSubmit = (data) => {
     console.log(data);
     reset();
   };
-
   return (
     <form action="" className="register-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="register-container">
         <div className="register-steps">
           <h2>Регистрация</h2>
           <div>
-            <span>1 шаг из 3</span>
+            <span>{step > 3 ? 3 : step} шаг из 3</span>
           </div>
         </div>
         <div className="reg-required-inputs-container">
-          <label htmlFor="reg-login-input">
-            <input
-              id="reg-login-input"
-              type="text"
-              className="reg-login"
-              name=""
-              placeholder="Придумайте логин для входа"
-              {...register("username", {
-                required: "Используйте для логина латинский алфавит и цифры",
-              })}
-            />
-            <div style={{ color: "red" }}>
-              {errors?.username && errors?.username?.message}
-              Используйте для логина латинский алфавит и цифры
-            </div>
-          </label>
-          <label htmlFor="reg-password-input">
-            <input
-              id="reg-password-input"
-              type="password"
-              className="reg-password"
-              name=""
-              placeholder="Пароль"
-              {...register("password", {
-                required:
-                  "Пароль не менее 8 символов, с заглавной буквой и цифрой",
-                minLength: {
-                  value: 8,
-                  message: "Пароль не менее 8 символов",
-                },
-                pattern: /[A-Z]+[0-9]+[@#$&]/,
-              })}
-            />
-            <div>
-              {errors?.password && errors?.password?.message}
-              Пароль не менее 8 символов, с заглавной буквой и цифрой
-            </div>
-          </label>
+          {step === 1 && <RegStepOne register={register} errors={errors} />}
+          {step === 2 && <RegStepTwo register={register} errors={errors} />}
+          {step === 3 && <RegStepThree register={register} errors={errors} />}
         </div>
         <div className="next-move-container">
-          <button className="reg-next-moveBtn" type="button">
+          <button
+            className="reg-next-moveBtn"
+            type="buttom"
+            onClick={() => {
+              setStep((prev) => prev + 1);
+            }}
+            disabled={!isDirty || !isValid}
+          >
             следующий шаг
           </button>
           <div className="next-move-question">
