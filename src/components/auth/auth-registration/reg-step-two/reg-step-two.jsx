@@ -8,8 +8,7 @@ export const RegStepTwo = ({ register, errors }) => {
           id="reg-firstName-input"
           type="text"
           className="reg-password"
-          name="dwad"
-          placeholder="Имя"
+          placeholder=" "
           {...register("firstName", {
             required: true,
             minLength: {
@@ -18,6 +17,8 @@ export const RegStepTwo = ({ register, errors }) => {
             },
           })}
         />
+
+        <span>Имя</span>
         <div style={{ color: "red" }}> {errors?.firstName?.message}</div>
       </label>
       <label htmlFor="reg-lastName-input">
@@ -25,8 +26,7 @@ export const RegStepTwo = ({ register, errors }) => {
           id="reg-lastName-input"
           type="text"
           className="reg-login"
-          name=""
-          placeholder="Фамилия"
+          placeholder=" "
           {...register("lastName", {
             required: true,
             minLength: {
@@ -35,6 +35,7 @@ export const RegStepTwo = ({ register, errors }) => {
             },
           })}
         />
+        <span>Фамилия</span>
         <div style={{ color: "red" }}>{errors?.lastName?.message}</div>
       </label>
     </React.Fragment>

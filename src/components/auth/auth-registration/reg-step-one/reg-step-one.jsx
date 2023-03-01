@@ -9,7 +9,7 @@ export const RegStepOne = ({ register, errors }) => {
           type="text"
           className="reg-login"
           name=""
-          placeholder="Придумайте логин для входа"
+          placeholder=" "
           {...register("username", {
             required: true,
             pattern: /^(?=.*\d)[a-zA-Z0-9()*_\-!#$%^&*,."\'\][]+$/,
@@ -19,6 +19,7 @@ export const RegStepOne = ({ register, errors }) => {
             },
           })}
         />
+        <span>Придумайте логин для входа</span>
         <div style={errors.username ? { color: "red" } : null}>
           {errors?.username?.message ||
             "Используйте для логина латинский алфавит и цифры"}
@@ -30,7 +31,7 @@ export const RegStepOne = ({ register, errors }) => {
           type="password"
           className="reg-password"
           name="dwad"
-          placeholder="Пароль"
+          placeholder=" "
           {...register("password", {
             required: true,
             minLength: {
@@ -41,6 +42,7 @@ export const RegStepOne = ({ register, errors }) => {
             pattern: /(?=.*\d)(?=.*[A-Z])/,
           })}
         />
+        <span>Пароль</span>
         <div style={errors.password ? { color: "red" } : null}>
           {errors?.password?.message ||
             "Пароль не менее 8 символов, с заглавной буквой и цифрой"}

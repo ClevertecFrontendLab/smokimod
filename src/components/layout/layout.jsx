@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 
-import { ErrorCase } from "./layout-main-page/error-case/error-case";
+import { ErrorCase } from "../error-case/error-case";
 import { Menuburger } from "./layout-main-page/menu/menu-burger/menu-burger";
 import { Footer } from "./footer";
 import { Header } from "./header";

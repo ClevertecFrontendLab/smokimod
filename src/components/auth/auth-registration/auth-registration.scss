@@ -48,18 +48,49 @@
     -moz-appearance: none;
     appearance: none;
   }
-
   label {
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.2px;
     color: #a7a7a7;
+
+    position: relative;
+    display: inline-block;
     div {
       padding-left: 12px;
     }
   }
+
+  span {
+    color: #363636;
+    padding: 20px 10px 0px 10px;
+    pointer-events: none;
+    position: absolute;
+    font-size: 14px;
+    left: 0;
+    top: 0;
+    width: 250px;
+    transition: 0.2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  input:focus + span,
+  input:not(:placeholder-shown) + span {
+    margin-top: 10px;
+    font-size: 12px;
+    opacity: 1;
+    transform: scale(0.75) translateY(-100%) translateX(-30px);
+    letter-spacing: 0.2px;
+    color: #a7a7a7;
+    line-height: 16px;
+    width: 220px;
+
+    font-weight: 500;
+  }
 }
+
 .next-move-container {
   display: flex;
   flex-direction: column;

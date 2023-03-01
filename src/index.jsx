@@ -18,7 +18,7 @@ root.render(
   <HashRouter>
     <Provider store={store}>
       <Routes>
-        {/* <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route element={<LayoutMainPage />}>
             <Route path="/" element={<Navigate to="books/all" />} />
             <Route path="books/:category" element={<MainPage />} />
@@ -32,7 +32,7 @@ root.render(
             />
           </Route>
           <Route path="books/:category/:id" element={<BookPage />} />
-        </Route> */}
+        </Route>
         <Route path="/api/auth/local/register" element={<Auth />} />
       </Routes>
     </Provider>

@@ -1,18 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { AdditionalInfoBook } from "./additional-info-book/additional-info-book";
 import { BookComents } from "./book-coments/book-coments";
 import { BookRating } from "./book-rating/book-rating";
 import { BookSlider } from "./book-slider/book-slider";
-import { useEffect } from "react";
 import { CurrentBookSlice } from "../../store/books-slice";
 import { useDispatch, useSelector } from "react-redux";
-import { Loader } from "../layout/layout-main-page/loader/loader";
+import { Loader } from "../loader";
 import { CategoryOfBooksSlice } from "../../store/books-slice";
+import { BreadCrumbs } from "./bread-crumbs/bread-crumbs";
 
 import "./book-page.scss";
-import { BreadCrumbs } from "./bread-crumbs/bread-crumbs";
 
 export const BookPage = () => {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import warning from "../../../../icons/WarningCircle.svg";
-import cross from "../../../../icons/creset_icon.svg";
+import warning from "../../icons/WarningCircle.svg";
+import cross from "../../icons/creset_icon.svg";
 
 import "./error-case.scss";
 

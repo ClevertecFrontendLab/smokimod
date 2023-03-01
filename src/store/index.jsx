@@ -5,6 +5,7 @@ import {
   compose,
 } from "redux";
 import thunk from "redux-thunk";
+import { authReducer } from "./authReducer";
 import { booksReducer } from "./booksReducer";
 
 import { BurgerMenuReducer } from "./burger-menu-reducer";
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   burger: BurgerMenuReducer,
   comments: BurgerMenuReducer,
   books: booksReducer,
+  auth: authReducer,
 });
 
 export const store = createStore(

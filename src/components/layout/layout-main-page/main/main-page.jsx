@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { Loader } from "../loader/loader";
+import { Loader } from "../../../loader";
 import { BooksPlate } from "../main-books//books-plate";
 import { BookSqure } from "../main-books/books-squre";
 
