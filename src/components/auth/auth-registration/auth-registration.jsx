@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 import { RegStepOne } from "./reg-step-one/reg-step-one";
 import { RegStepTwo } from "./reg-step-two/reg-step-two";
 import { RegStepThree } from "./reg-step-three/reg-step-three";
+import { RegisterSlice } from "../../../store/auth-slice";
+import { RegistrationSucces } from "./registration-succes/registration-succes";
 
-import "./auth-registration.scss";
-import { useDispatch } from "react-redux";
-import { AuthSlice } from "../../../store/auth-slice";
-import axios from "axios";
+import "../auth-reg-styles.scss";
 
-export const AuthRegistration = ({ step, setStep }) => {
+export const AuthRegistration = () => {
+  const [step, setStep] = useState(1);
+
   const {
     register,
     handleSubmit,
@@ -22,16 +24,16 @@ export const AuthRegistration = ({ step, setStep }) => {
   });
 
   const dispatch = useDispatch();
+
   const onSubmit = async (data) => {
+    setStep((prev) => prev + 1);
+    dispatch(RegisterSlice(data));
     console.log(data);
-    await axios.post(
-      "https://strapi.cleverland.by/api/auth/local/register",
-      data
-    );
     reset();
   };
-  console.log(step);
-  return (
+  return step === 4 ? (
+    <RegistrationSucces />
+  ) : (
     <form action="" className="register-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="register-container">
         <div className="register-steps">
@@ -58,7 +60,11 @@ export const AuthRegistration = ({ step, setStep }) => {
               {step === 1 ? "следующий шаг" : "последний шаг"}
             </button>
           ) : (
-            <button type="submit" className="reg-next-moveBtn">
+            <button
+              type="submit"
+              className="reg-next-moveBtn"
+              disabled={!isDirty || !isValid}
+            >
               зарегистрироваться
             </button>
           )}

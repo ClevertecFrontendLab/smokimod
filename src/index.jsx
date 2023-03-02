@@ -8,9 +8,11 @@ import { LayoutMainPage } from "./components/layout/layout-main-page";
 import { MainPage } from "./components/layout/layout-main-page/main";
 import { Terms } from "./components/layout/layout-main-page/terms";
 import { store } from "./store";
+import { RegistrationLayout } from "./components/auth/registration-layout";
+import { AuthRegistration } from "./components/auth/auth-registration/auth-registration";
 
 import "./index.scss";
-import { Auth } from "./components/auth/auth";
+import { LogInAuth } from "./components/auth/log-in-auth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -33,7 +35,10 @@ root.render(
           </Route>
           <Route path="books/:category/:id" element={<BookPage />} />
         </Route>
-        <Route path="/api/auth/local/register" element={<Auth />} />
+        {/* <Routes path="/api/auth/local" element={<RegistrationLayout />}> */}
+        <Route path="/api/auth/local" element={<LogInAuth />} />
+        {/* <Route path="local/register" element={<AuthRegistration />} />
+        </Routes> */}
       </Routes>
     </Provider>
   </HashRouter>

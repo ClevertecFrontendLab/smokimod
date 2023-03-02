@@ -5,11 +5,25 @@ import {
   loadingAuthReducer,
 } from "./authReducer";
 
-export const AuthSlice = () => async (dispatch) => {
+export const RegisterSlice = (data) => async (dispatch) => {
   dispatch(loadingAuthReducer());
   try {
     const results = await axios.post(
-      "https://strapi.cleverland.by/api/auth/local/register"
+      "https://strapi.cleverland.by/api/auth/local/register",
+      data
+    );
+    await dispatch(getAuthReducer(results));
+  } catch (err) {
+    dispatch(getErrorAuthReducer(err));
+  }
+};
+
+export const AuthSlice = (data) => async (dispatch) => {
+  dispatch(loadingAuthReducer());
+  try {
+    const results = await axios.post(
+      "https://strapi.cleverland.by/api/auth/local",
+      data
     );
     await dispatch(getAuthReducer(results));
   } catch (err) {
