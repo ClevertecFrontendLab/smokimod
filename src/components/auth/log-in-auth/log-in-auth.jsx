@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
+import Arrow from "../../../icons/auth/arrow.svg";
 import { LogInInputs } from "./log-in-inputs/log-in-inputs";
 import { AuthSlice } from "../../../store/auth-slice";
 
@@ -20,7 +21,6 @@ export const LogInAuth = () => {
   const dispath = useDispatch();
 
   const onSubmit = async (data) => {
-    console.log(data);
     await dispath(AuthSlice(data));
     navigate("/books/all", { replace: true });
 
@@ -46,8 +46,11 @@ export const LogInAuth = () => {
           </button>
           <div className="next-move-question">
             Нет учётной записи?
-            <Link to="/api/auth/local" className="logIn-link">
-              Регистрация
+            <Link to="/api/auth/local/register" className="logIn-link">
+              Регистрация{" "}
+              <div>
+                <img src={Arrow} alt="alt" />
+              </div>
             </Link>
           </div>
         </div>

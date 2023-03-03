@@ -8,7 +8,7 @@ import "./header.scss";
 export const Header = ({ closeBurger }) => {
   const dispatch = useDispatch();
   const burger = useSelector((state) => state.burger.isBurger);
-  const userName = "Иван";
+  const userName = useSelector((state) => state.auth.userData);
 
   const toggleBurger = (e) => {
     e.stopPropagation();
@@ -35,7 +35,9 @@ export const Header = ({ closeBurger }) => {
         </div>
         <h3 className="library header-item">Библиотека</h3>
         <div className="user header-item">
-          <div className="user-name">Привет, {userName}</div>
+          <div className="user-name">
+            Привет, {userName?.data?.user?.firstName}
+          </div>
           <div className="img-user-container">
             <img className="img-user" src={avatar} alt={avatar} />
           </div>

@@ -10,10 +10,10 @@ import { Terms } from "./components/layout/layout-main-page/terms";
 import { store } from "./store";
 import { RegistrationLayout } from "./components/auth/registration-layout";
 import { AuthRegistration } from "./components/auth/auth-registration/auth-registration";
-
-import "./index.scss";
 import { LogInAuth } from "./components/auth/log-in-auth";
 
+import "./index.scss";
+console.log(localStorage.getItem("auth") ? "a" : "");
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -22,7 +22,8 @@ root.render(
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route element={<LayoutMainPage />}>
-            <Route path="/" element={<Navigate to="books/all" />} />
+            <Route path="/" element={<Navigate to={"api/auth/local"} />} />
+
             <Route path="books/:category" element={<MainPage />} />
             <Route
               path="rules"
@@ -35,10 +36,10 @@ root.render(
           </Route>
           <Route path="books/:category/:id" element={<BookPage />} />
         </Route>
-        {/* <Routes path="/api/auth/local" element={<RegistrationLayout />}> */}
-        <Route path="/api/auth/local" element={<LogInAuth />} />
-        {/* <Route path="local/register" element={<AuthRegistration />} />
-        </Routes> */}
+        <Route path="/api/auth/" element={<RegistrationLayout />}>
+          <Route path="local" element={<LogInAuth />} />
+          <Route path="local/register" element={<AuthRegistration />} />
+        </Route>
       </Routes>
     </Provider>
   </HashRouter>

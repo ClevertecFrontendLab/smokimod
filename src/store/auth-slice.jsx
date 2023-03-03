@@ -25,6 +25,7 @@ export const AuthSlice = (data) => async (dispatch) => {
       "https://strapi.cleverland.by/api/auth/local",
       data
     );
+    localStorage.setItem("auth", JSON.stringify(results.data.jwt));
     await dispatch(getAuthReducer(results));
   } catch (err) {
     dispatch(getErrorAuthReducer(err));
