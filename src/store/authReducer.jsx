@@ -3,7 +3,9 @@ const LOADING_REGISTRATION_DATA = "LOADING_REGISTRATION_DATA";
 const ERROR_REGISTRATION_DATA = "ERROR_REGISTRATION_DATA";
 
 const initialState = {
-  userData: [],
+  userData: localStorage.getItem("auth")
+    ? JSON.parse(localStorage.getItem("auth"))
+    : [],
   loading: false,
   error: false,
 };

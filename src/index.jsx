@@ -12,18 +12,17 @@ import { RegistrationLayout } from "./components/auth/registration-layout";
 import { AuthRegistration } from "./components/auth/auth-registration/auth-registration";
 import { LogInAuth } from "./components/auth/log-in-auth";
 
-import "./index.scss";
-console.log(localStorage.getItem("auth") ? "a" : "");
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const toggleRoutesPermission = localStorage.getItem("auth");
+
+import "./index.scss";
 
 root.render(
   <HashRouter>
     <Provider store={store}>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path={toggleRoutesPermission ? "/" : ""} element={<Layout />}>
           <Route element={<LayoutMainPage />}>
-            <Route path="/" element={<Navigate to={"api/auth/local"} />} />
-
             <Route path="books/:category" element={<MainPage />} />
             <Route
               path="rules"
@@ -36,6 +35,7 @@ root.render(
           </Route>
           <Route path="books/:category/:id" element={<BookPage />} />
         </Route>
+        <Route index path="/" element={<Navigate to={"api/auth/local"} />} />
         <Route path="/api/auth/" element={<RegistrationLayout />}>
           <Route path="local" element={<LogInAuth />} />
           <Route path="local/register" element={<AuthRegistration />} />

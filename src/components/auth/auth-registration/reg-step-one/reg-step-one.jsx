@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+
+import ConfirmedPassword from "../../../../icons/auth/confirm_password.svg";
+import EyeOpen from "../../../../icons/auth/eye_open.svg";
+import EyeClose from "../../../../icons/auth/eye_close.svg";
 
 export const RegStepOne = ({ register, errors }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <React.Fragment>
       <label htmlFor="reg-login-input">
@@ -43,6 +49,18 @@ export const RegStepOne = ({ register, errors }) => {
           })}
         />
         <span>Пароль</span>
+        <button
+          className="icon-eye"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          <img
+            src={(showPassword && EyeOpen) || (!showPassword && EyeClose)}
+            alt="eye"
+          />
+        </button>
+        <button className="icon-password">
+          <img src={ConfirmedPassword} alt="ConfirmedPassword" />
+        </button>
         <div style={errors.password ? { color: "red" } : null}>
           {errors?.password?.message ||
             "Пароль не менее 8 символов, с заглавной буквой и цифрой"}

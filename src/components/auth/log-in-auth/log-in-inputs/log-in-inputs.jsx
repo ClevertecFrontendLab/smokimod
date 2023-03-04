@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+
+import EyeOpen from "../../../../icons/auth/eye_open.svg";
+import EyeClose from "../../../../icons/auth/eye_close.svg";
+import ConfirmedPassword from "../../../../icons/auth/confirm_password.svg";
 
 export const LogInInputs = ({ register, errors }) => {
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <React.Fragment>
       <label htmlFor="reg-identifier-input">
@@ -24,7 +29,7 @@ export const LogInInputs = ({ register, errors }) => {
       <label htmlFor="reg-password-input">
         <input
           id="reg-password-input"
-          type="password"
+          type={showPassword ? "text" : "password"}
           className="reg-password"
           name="dwad"
           placeholder=" "
@@ -38,6 +43,15 @@ export const LogInInputs = ({ register, errors }) => {
           })}
         />
         <span>Пароль</span>
+        <button
+          className="icon-eye"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          <img
+            src={(showPassword && EyeOpen) || (!showPassword && EyeClose)}
+            alt="eye"
+          />
+        </button>
         <div style={{ marginTop: "16px" }}>
           {errors?.password?.message ||
             (errors?.username?.message && (

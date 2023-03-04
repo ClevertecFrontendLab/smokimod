@@ -1,15 +1,9 @@
-import { useSelector } from "react-redux";
-import { Loader } from "../../../loader";
 import { Link } from "react-router-dom";
 
 import "./registration-succes.scss";
 
 export const RegistrationSucces = () => {
-  const loading = useSelector((state) => state.auth.loading);
-
-  return loading ? (
-    <Loader />
-  ) : (
+  return (
     <div className="reg-succes">
       <h3>Регистрация успешна</h3>
       <p>
@@ -17,7 +11,7 @@ export const RegistrationSucces = () => {
         логин и пароль
       </p>
       <Link to="/api/auth/local">
-        <button className="succes-btn"></button>
+        <button className="succes-btn">вход</button>
       </Link>
     </div>
   );

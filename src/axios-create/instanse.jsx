@@ -6,9 +6,9 @@ export const AuthFetch = axios.create({
 });
 AuthFetch.interceptors.request.use(
   (request) => {
-    request.headers["Authorization"] = `Bearer ${JSON.parse(
-      localStorage.getItem("auth")
-    )}`;
+    request.headers["Authorization"] = `Bearer ${
+      JSON.parse(localStorage.getItem("auth"))?.data?.jwt
+    }`;
     return request;
   },
   (error) => {

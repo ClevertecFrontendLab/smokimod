@@ -12,8 +12,8 @@ export const Menuburger = ({ showArticle }) => {
   const dispatch = useDispatch();
 
   const wayDownMenu = () => {
+    localStorage.removeItem("auth");
     setCloseMenu(true);
-
     dispatch({ type: "ClOSE_BURGER" });
   };
 
@@ -32,7 +32,7 @@ export const Menuburger = ({ showArticle }) => {
             Профиль
           </button>
         </NavLink>
-        <NavLink className={setActive} to="/#" activeclassname="active item">
+        <NavLink className={setActive} to="/" activeclassname="active item">
           <button onClick={wayDownMenu} type="button" className="terms item">
             Выход
           </button>

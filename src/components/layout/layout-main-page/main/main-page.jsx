@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -18,7 +18,6 @@ export const MainPage = () => {
   const categories = useSelector((state) => state.books.categories);
   const { category } = useParams();
 
-  const [finallBooks, setfinallBooks] = useState([] && books);
   const [showSeacthBar, setShowSeacthBar] = useState(false);
   const [showPlate, setShowPlate] = useState(true);
   const [sortByRating, setSortByRating] = useState(false);
@@ -34,7 +33,7 @@ export const MainPage = () => {
       : "disabled";
   };
 
-  useEffect(() => {
+  const finallBooks = useMemo(() => {
     const filterByCategory =
       category === "all"
         ? books
@@ -49,8 +48,7 @@ export const MainPage = () => {
     const sort = sortByName.sort((a, b) => {
       return sortByRating ? a.rating - b.rating : b.rating - a.rating;
     });
-
-    setfinallBooks(sort);
+    return sort;
   }, [category, searchParam, books, chooseCategoryByName, sortByRating]);
 
   return (

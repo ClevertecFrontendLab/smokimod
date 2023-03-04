@@ -7,12 +7,12 @@
   .register-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 100%;
     gap: 32px;
   }
 }
 .register-steps {
+  height: 56px;
   h2 {
     margin: 0;
     margin-bottom: 8px;
@@ -49,15 +49,16 @@
     appearance: none;
   }
   label {
+    height: 56px;
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.2px;
     color: #a7a7a7;
-
     position: relative;
     display: inline-block;
     div {
+      padding-top: 2px;
       padding-left: 12px;
     }
   }
@@ -75,6 +76,25 @@
     transition-timing-function: ease;
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
   }
+  .icon-eye,
+  .icon-password {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 24px;
+    height: 24px;
+    background: none;
+    color: inherit;
+    border: none;
+    text-align: start;
+    padding: 0;
+    cursor: pointer;
+    outline: inherit;
+  }
+  .icon-password {
+    right: 44px;
+    top: 16px;
+  }
 
   input:focus + span,
   input:not(:placeholder-shown) + span {
@@ -86,7 +106,6 @@
     color: #a7a7a7;
     line-height: 16px;
     width: 220px;
-
     font-weight: 500;
   }
 }
@@ -96,7 +115,6 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
-  height: 92px;
   .reg-next-moveBtn {
     width: 100%;
     height: 52px;
@@ -143,8 +161,33 @@
 }
 @media (min-width: 320px) and (max-width: 768px) {
   .register-form {
-    padding: calc(24px + (48 - 24) * ((100vw - 320px) / (768 - 320))),
+    padding: calc(24px + (48 - 24) * ((100vw - 320px) / (768 - 320)))
       calc(16px + (56 - 16) * ((100vw - 320px) / (768 - 320)));
     width: calc(288px + (528 - 288) * ((100vw - 320px) / (768 - 320)));
+  }
+}
+
+@media (max-width: 320px) {
+  .register-form {
+    height: 458px;
+  }
+
+  .reg-required-inputs-container {
+    gap: 42px;
+  }
+  .next-move-container {
+    font-size: 15px;
+    .reg-next-moveBtn {
+      height: 40px;
+      font-size: 12px;
+    }
+    .next-move-question {
+      height: 48px;
+      flex-direction: column;
+    }
+    .logIn-link {
+      padding-left: 0;
+      font-size: 12px;
+    }
   }
 }
