@@ -1,12 +1,16 @@
+import React from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import Arrow from "../../../icons/auth/arrow.svg";
 import { LogInInputs } from "./log-in-inputs/log-in-inputs";
 import { AuthSlice } from "../../../store/auth-slice";
+import { Form } from "../auth-components/form/form";
+import { Loader } from "../../loader";
+import { Button } from "../auth-components/button/button";
+import { LinkTo } from "../auth-components/link/link";
 
-import "../auth-reg-styles.scss";
+import "../common-styles.scss";
 
 export const LogInAuth = () => {
   const {
@@ -17,8 +21,10 @@ export const LogInAuth = () => {
   } = useForm({
     mode: "onBlur",
   });
+
   const navigate = useNavigate();
   const dispath = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
 
   const onSubmit = async (data) => {
     await dispath(AuthSlice(data));
@@ -28,8 +34,9 @@ export const LogInAuth = () => {
   };
 
   return (
-    <form action="" className="register-form" onSubmit={handleSubmit(onSubmit)}>
-      <div className="register-container">
+    <React.Fragment>
+      {loading ? <Loader /> : null}
+      <Form handleSubmit={handleSubmit(onSubmit)}>
         <div className="register-steps">
           <h2>Вход в личный кабинет</h2>
         </div>
@@ -37,24 +44,16 @@ export const LogInAuth = () => {
           <LogInInputs register={register} errors={errors} />
         </div>
         <div className="next-move-container">
-          <button
-            type="submit"
-            className="reg-next-moveBtn"
-            disabled={!isDirty || !isValid}
-          >
+          <Button isDirty={isDirty} isValid={isValid}>
             вход
-          </button>
-          <div className="next-move-question">
-            Нет учётной записи?
-            <Link to="/api/auth/local/register" className="logIn-link">
-              Регистрация{" "}
-              <div>
-                <img src={Arrow} alt="alt" />
-              </div>
-            </Link>
-          </div>
+          </Button>
+          <LinkTo
+            question={"Нет учётной записи?"}
+            link={"Регистрация"}
+            path={"local/register"}
+          />
         </div>
-      </div>
-    </form>
+      </Form>
+    </React.Fragment>
   );
 };

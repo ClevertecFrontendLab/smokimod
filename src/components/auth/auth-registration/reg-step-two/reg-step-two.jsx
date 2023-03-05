@@ -12,12 +12,10 @@ export const RegStepTwo = ({ register, errors }) => {
           {...register("firstName", {
             required: true,
             minLength: {
-              value: 1,
               message: "Поле не может быть пустым",
             },
           })}
         />
-
         <span>Имя</span>
         <div style={{ color: "red" }}> {errors?.firstName?.message}</div>
       </label>
@@ -30,7 +28,6 @@ export const RegStepTwo = ({ register, errors }) => {
           {...register("lastName", {
             required: true,
             minLength: {
-              value: 1,
               message: "Поле не может быть пустым",
             },
           })}

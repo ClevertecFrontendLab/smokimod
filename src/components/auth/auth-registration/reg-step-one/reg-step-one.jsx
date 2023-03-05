@@ -50,6 +50,7 @@ export const RegStepOne = ({ register, errors }) => {
         />
         <span>Пароль</span>
         <button
+          type="button"
           className="icon-eye"
           onClick={() => setShowPassword(!showPassword)}
         >
@@ -58,9 +59,10 @@ export const RegStepOne = ({ register, errors }) => {
             alt="eye"
           />
         </button>
-        <button className="icon-password">
+        <button className="icon-password" type="button">
           <img src={ConfirmedPassword} alt="ConfirmedPassword" />
         </button>
+
         <div style={errors.password ? { color: "red" } : null}>
           {errors?.password?.message ||
             "Пароль не менее 8 символов, с заглавной буквой и цифрой"}

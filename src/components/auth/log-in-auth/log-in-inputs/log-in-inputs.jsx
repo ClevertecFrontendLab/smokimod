@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import EyeOpen from "../../../../icons/auth/eye_open.svg";
 import EyeClose from "../../../../icons/auth/eye_close.svg";
-import ConfirmedPassword from "../../../../icons/auth/confirm_password.svg";
 
 export const LogInInputs = ({ register, errors }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -44,6 +44,7 @@ export const LogInInputs = ({ register, errors }) => {
         />
         <span>Пароль</span>
         <button
+          type="button"
           className="icon-eye"
           onClick={() => setShowPassword(!showPassword)}
         >
@@ -52,14 +53,23 @@ export const LogInInputs = ({ register, errors }) => {
             alt="eye"
           />
         </button>
-        <div style={{ marginTop: "16px" }}>
-          {errors?.password?.message ||
-            (errors?.username?.message && (
-              <span style={{ colro: "red" }}>Восстановить?</span>
-            )) ||
-            "Забыли логин или пароль?"}
-        </div>
       </label>
+      <div className="restore-password">
+        {(errors?.password?.message && (
+          <div className="pass-error" style={{ color: "red" }}>
+            {errors?.password?.message}
+            <Link to="/api/auth/forgot-password">Восстановить?</Link>
+          </div>
+        )) ||
+          (errors?.identifier?.message && (
+            <div className="pass-error" style={{ color: "red" }}>
+              {errors?.identifier?.message}
+              <Link to="/api/auth/forgot-password">Восстановить?</Link>
+            </div>
+          )) || (
+            <Link to="/api/auth/forgot-password">Забыли логин или пароль?</Link>
+          )}
+      </div>
     </React.Fragment>
   );
 };

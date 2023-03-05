@@ -31,3 +31,15 @@ export const AuthSlice = (data) => async (dispatch) => {
     dispatch(getErrorAuthReducer(err));
   }
 };
+
+export const RestorePasswordSlice = (data) => async (dispatch) => {
+  dispatch(loadingAuthReducer());
+  try {
+    await axios.post(
+      "https://strapi.cleverland.by/api/auth/forgot-password",
+      data
+    );
+  } catch (err) {
+    dispatch(getErrorAuthReducer(err));
+  }
+};
