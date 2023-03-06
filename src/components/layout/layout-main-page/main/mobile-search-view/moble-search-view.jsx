@@ -1,5 +1,3 @@
-import crossIcon from "../../../../../icons/creset_icon.svg";
-
 import "../main-page.scss";
 import "./moble-search-view.scss";
 
