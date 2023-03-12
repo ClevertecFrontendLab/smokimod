@@ -1,4 +1,5 @@
 import axios from "axios";
+import { AuthFetch } from "../axios-create/instanse";
 import {
   getBooksRequest,
   loadingBooksRequest,
@@ -10,9 +11,8 @@ import {
 export const BooksSlice = () => async (dispatch) => {
   dispatch(loadingBooksRequest());
   try {
-    const bookSearchRequest = await axios.get(
-      "https://strapi.cleverland.by/api/books"
-    );
+    const bookSearchRequest = await AuthFetch("/books");
+
     await dispatch(getBooksRequest(bookSearchRequest));
   } catch (err) {
     dispatch(errorBooksRequest(err));
@@ -22,9 +22,7 @@ export const BooksSlice = () => async (dispatch) => {
 export const CurrentBookSlice = (id) => async (dispatch) => {
   dispatch(loadingBooksRequest());
   try {
-    const currentBookSearchRequest = await axios.get(
-      `https://strapi.cleverland.by/api/books/${id}`
-    );
+    const currentBookSearchRequest = await AuthFetch(`/books/${id}`);
     await dispatch(getCurrentBookRequest(currentBookSearchRequest));
   } catch (err) {
     dispatch(errorBooksRequest(err));
@@ -34,9 +32,7 @@ export const CurrentBookSlice = (id) => async (dispatch) => {
 export const CategoryOfBooksSlice = (categories) => async (dispatch) => {
   dispatch(loadingBooksRequest());
   try {
-    const genreSearchRequest = await axios.get(
-      `https://strapi.cleverland.by/api/categories`
-    );
+    const genreSearchRequest = await AuthFetch(`/categories`);
     await dispatch(getCategoryBookRequest(genreSearchRequest));
   } catch (err) {
     dispatch(errorBooksRequest(err));

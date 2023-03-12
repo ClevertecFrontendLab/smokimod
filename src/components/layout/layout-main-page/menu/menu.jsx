@@ -53,7 +53,7 @@ export const Menu = ({ showArticle, hanbdleClose }) => {
         <ul className={isTogleMenu ? "navigation disabled" : "navigation"}>
           {categories.map((item, i) => {
             return i === 0 ? (
-              <li className="first-li">
+              <li className="first-li" key={i}>
                 <NavLink
                   to="/books/all"
                   className={setActive}
